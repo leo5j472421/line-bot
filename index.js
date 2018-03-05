@@ -1,5 +1,6 @@
 linebot = require('linebot');
 express = require('express');
+WebSocket = require('ws');
 rp = require('request-promise');
 
 bot = linebot({
@@ -75,7 +76,7 @@ poloniex = function () {
             });
         }
 
-        function tickInit(e) {
+        /*function tickInit(e) {
             return new Promise(function (resolve, reject) {
                 request('https://poloniex.com/public?command=returnTicker', function (error, response, body) {
                     if (!error && response.statusCode === 200) {
@@ -98,7 +99,7 @@ poloniex = function () {
                 resolve(e.target);
             });
 
-        }
+        }*/
 
         function tradeEvent(datas, cp) {
             for (let i in datas) {
@@ -199,9 +200,8 @@ poloniex = function () {
 };
 
 
-p = poloniex();
+p = new poloniex();
 p.start();
-
 
 bot.on('message', function (event) {
     if (event.message.type = 'text') {
@@ -224,7 +224,7 @@ bot.on('message', function (event) {
                 // error
                 console.log('error');
             });
-            
+
             /*getTickerData(currency).then(ticker => {
                 console.log('in22');
                 let string = '現在價格 : ' + ticker.price ;
