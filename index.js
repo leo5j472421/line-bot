@@ -26,13 +26,14 @@ function getTickerData(pair) {
 
 bot.on('message', function(event) {
     if (event.message.type = 'text') {
-        let msgs = event.message.text.match(/\S+/g);
+        let msg = event.message.text;
+        let msgs = msg(/\S+/g);
         let action = msgs[0];
-        if( msgs === '價格' || msgs === '$' ){
+        if( action === '價格' || action === '$' ){
            let currency = msgs[1] ;
            getTickerData(currency).then(ticker=>event.reply(ticker))
         }
-        event.reply(msg).then(function(data) {
+        event.reply(msgs).then(function(data) {
             // success
             console.log('success sent message'+data);
         }).catch(function(error) {
