@@ -262,8 +262,6 @@ function alltick() {
                 }]
             })
         }
-
-        console.log(all);
         resolve(all);
 
     });
@@ -282,8 +280,9 @@ bot.on('message', function (event) {
             try {
                 if (currency === 'ALL') {
                     console.log('allin');
-                    alltick().then(() => {
-                        event.reply(all).then(function (data) {
+                    alltick().then(alls => {
+                        console.log(alls);
+                        event.reply(alls).then(function (data) {
                             // success
                             console.log('success sent message' + data);
                         }).catch(function (error) {
