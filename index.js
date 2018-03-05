@@ -66,7 +66,7 @@ poloniex = function () {
                 self.tick[cp].high = data[8];
                 self.tick[cp].low = data[9];
                 self.tick[cp].volume = data[5];
-                self.tick[cp].change = data[4];
+                self.tick[cp].change = (parseFloat(data[4])*100).toString();
                 //console.log(self.tick);
             } catch (err) {
                 // tickInit is not finished yet
@@ -231,19 +231,23 @@ bot.on('message', function (event) {
         let action = msgs[0];
         if (action === '價格' || action === '$') {
             let currency = msgs[1];
-            ticker = p.ws.tick['USDT_'+currency];
-            let string = '現在價格 : ' + ticker.price ;
-            string += '\n過去24H最高價 : ' + ticker.high ;
-            string += '\n過去24H最低價 : ' + ticker.low ;
-            string += '\n漲幅 : ' + ticker.change + '%';
-            console.log(string);
-            event.reply(string).then(function (data) {
-                // success
-                console.log('success sent message' + data);
-            }).catch(function (error) {
-                // error
-                console.log('error');
-            });
+            try {
+                ticker = p.ws.tick['USDT_' + currency];
+                let string = '現在價格 : ' + ticker.price;
+                string += '\n過去24H最高價 : ' + ticker.high;
+                string += '\n過去24H最低價 : ' + ticker.low;
+                string += '\n漲幅 : ' + ticker.change + '%';
+                console.log(string);
+                event.reply(string).then(function (data) {
+                    // success
+                    console.log('success sent message' + data);
+                }).catch(function (error) {
+                    // error
+                    console.log('error');
+                });
+            } catch {
+                event.reply('不支援"'+currency+'"幣種';
+            }
 
             /*getTickerData(currency).then(ticker => {
                 console.log('in22');
