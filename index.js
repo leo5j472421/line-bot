@@ -254,10 +254,10 @@ function alltick() {
                 text: 'description',
                 actions: [{
                     type: 'postback',
-                    displayText: '現在價格 : ' + p.ws.tick[pair].price,
+                    label: '現在價格 : ' + p.ws.tick[pair].price,
                 }, {
                     type: 'postback',
-                    text: '漲幅 : ' + p.ws.tick[pair].change,
+                    label: '漲幅 : ' + p.ws.tick[pair].change,
                     data: 'usdt_eth'
                 }]
             })
