@@ -26,8 +26,7 @@ function getTickerData(pair) {
 bot.on('message', function (event) {
     if (event.message.type = 'text') {
         let msg = event.message.text;
-
-        let msgs = msg(/\S+/g);
+        let msgs = msg.match(/\S+/g);
         console.log(msgs);
         let action = msgs[0];
         if (action === '價格' || action === '$') {
