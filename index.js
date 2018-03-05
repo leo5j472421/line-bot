@@ -11,18 +11,21 @@ bot = linebot({
 
 function getTickerData(pair) {
     return rp('https://poloniex.com/public?command=returnTicker').then(data => {
-        console.log('here')
         data = JSON.parse(data);
         data = data['USDT_' + pair];
         tick = {
             'price': data.last,
-            'volume': data.baseVolume,
-            'change': data.percentChange
+            'high': data.high24hr,
+            'low' : data.low24hr,
+            'change': (parseFloat(data.percentChange)*100).toString()
         };
+
         console.log(tick);
         return tick
     });
 }
+
+
 
 
 bot.on('message', function (event) {
@@ -32,9 +35,15 @@ bot.on('message', function (event) {
         console.log(msgs);
         let action = msgs[0];
         if (action === '價格' || action === '$') {
-            console.log('in') ;
+            console.log('in');
             let currency = msgs[1];
-            getTickerData(currency).then(ticker => event.reply(ticker))
+            getTickerData(currency).then(ticker => {
+                let string = '現在價格 : ' + ticker.price ;
+                string = '\n過去24H最高價 : ' + ticker.high ;
+                string = '\n過去24H最低價 : ' + ticker.low ;
+                string = '\n漲幅 : ' + ticker.change ;
+                event.reply(ticker.toString())
+            })
         }
 
         event.reply(msg).then(function (data) {
