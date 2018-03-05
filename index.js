@@ -9,8 +9,22 @@ bot = linebot({
     channelAccessToken: 'fGY0tObXfJlN1e+7xyj4B7G1a0dgXNNxP62pFAOsz5KJtY4z98ZiyYU5V/L3AKLzNClxTBbdO6J1zciD0bZlhsqhFab1GqsKyrvw4RWfGRDLVBMYSPilZ86Q8PjjZ6nbsw/p9pOY73KZUt+YaSP1GwdB04t89/1O/w1cDnyilFU='
 });
 
+img = {
+    'BTC': 'https://i.ebayimg.com/images/g/9H0AAOSwh5hZ5P8g/s-l300.jpg',
+    'ETH': 'https://steemitimages.com/DQmdfgYyo81i2bRSnFW5zyRYJYEx8taaBrzL7akWR3Rez7k/ethereum%20moon.jpg',
+    'LTC': 'https://cryptocurrencynews.com/wp-content/uploads/sites/3/2018/02/Litecoin-Price-Watch-LTC-USD-Breaks-Above-230-678x381.jpg',
+    'XRP': 'https://news4c.com/wp-content/uploads/2018/02/Ripple-Survives-Market-Crash.jpg'
+};
 
 
+all = {
+    type: 'template',
+    altText: 'this is a carousel template',
+    template: {
+        type: 'carousel',
+        columns: []
+    }
+};
 
 function getTickerData(pair) {
     return rp('https://poloniex.com/public?command=returnTicker').then(data => {
@@ -226,6 +240,34 @@ poloniex = function () {
 p = new poloniex();
 p.start();
 
+allpair = ['BTC', 'ETH', 'LTC', 'XRP'];
+
+function alltick() {
+    return new Promise(function (resolve, reject) {
+        all.template.columns = [];
+        for (let index in allpair) {
+            pair = allpair[index];
+            all.template.columns.push({
+                thumbnailImageUrl: img[pair],
+                title: pair,
+                text: 'description',
+                actions: [{
+                    type: 'postback',
+                    displayText: '現在價格 : ' + p.ws.tick[pair].price,
+                }, {
+                    type: 'postback',
+                    text: '漲幅 : ' + p.ws.tick[pair].change,
+                    data: 'usdt_eth'
+                }]
+            })
+        }
+        resolve(all);
+    
+    });
+
+}
+
+
 bot.on('message', function (event) {
     if (event.message.type = 'text') {
         let msg = event.message.text;
@@ -237,54 +279,16 @@ bot.on('message', function (event) {
             try {
                 if (currency === 'ALL') {
                     console.log('allin');
-                    event.reply({
-                        type: 'template',
-                        altText: 'this is a carousel template',
-                        template: {
-                            type: 'carousel',
-                            columns: [{
-                                thumbnailImageUrl: 'https://i.imgur.com/gZhCBuL.jpg',
-                                title: 'this is menu',
-                                text: 'description',
-                                actions: [{
-                                    type: 'postback',
-                                    label: 'Buy',
-                                    data: 'usdt_btc'
-                                }, {
-                                    type: 'postback',
-                                    label: 'Add to cart',
-                                    data: 'usdt_eth'
-                                }, {
-                                    type: 'uri',
-                                    label: 'View detail',
-                                    uri: 'https://poloniex.com/exchange#usdt_xrp'
-                                }]
-                            }, {
-                                thumbnailImageUrl: 'https://i.imgur.com/yLO1XBB.jpg',
-                                title: 'this is menu',
-                                text: 'description',
-                                actions: [{
-                                    type: 'postback',
-                                    label: 'Buy',
-                                    data: 'action=buy&itemid=222'
-                                }, {
-                                    type: 'postback',
-                                    label: 'Add to cart',
-                                    data: 'action=add&itemid=222'
-                                }, {
-                                    type: 'uri',
-                                    label: 'View detail',
-                                    uri: 'http://example.com/page/222'
-                                }]
-                            }]
-                        }
-                    }).then(function (data) {
-                        // success
-                        console.log('success sent message' + data);
-                    }).catch(function (error) {
-                        // error
-                        console.log('error');
+                    alltick().then(all => {
+                        event.reply(all).then(function (data) {
+                            // success
+                            console.log('success sent message' + data);
+                        }).catch(function (error) {
+                            // error
+                            console.log('error');
+                        });
                     });
+
                 } else {
                     ticker = p.ws.tick['USDT_' + currency];
                     let string = '現在價格 : ' + ticker.price;
