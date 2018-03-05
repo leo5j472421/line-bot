@@ -245,8 +245,9 @@ bot.on('message', function (event) {
                     // error
                     console.log('error');
                 });
-            } catch {
-                event.reply('不支援"'+currency+'"幣種';
+            } catch (error) {
+                event.reply('不支援"'+currency+'"幣種');
+                console.log(error);
             }
 
             /*getTickerData(currency).then(ticker => {
