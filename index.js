@@ -243,7 +243,7 @@ p.start();
 allpair = ['BTC', 'ETH', 'LTC', 'XRP'];
 
 function alltick() {
-    console.log('alltick');
+    console.log('@@@');
     return new Promise(function (resolve, reject) {
         all.template.columns = [];
         for (let index in allpair) {
@@ -251,14 +251,15 @@ function alltick() {
             all.template.columns.push({
                 thumbnailImageUrl: img[pair],
                 title: pair,
-                text: 'description',
+                text: '現在價格 : ' + p.ws.tick[pair].price,
                 actions: [{
                     type: 'postback',
-                    label: '現在價格 : ' + p.ws.tick[pair].price,
+                    label: '現在價格',
+                    url : 'http://lee-w-blog.logdown.com/posts/1148026-more-about-line-messaging-api-template-messages'
                 }, {
                     type: 'postback',
-                    label: '漲幅 : ' + p.ws.tick[pair].change,
-                    data: 'usdt_eth'
+                    label: '漲幅 : ',
+                    url : 'https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Statements/try...catch'
                 }]
             })
         }
@@ -279,9 +280,8 @@ bot.on('message', function (event) {
             let currency = msgs[1];
             try {
                 if (currency === 'ALL') {
-                    console.log('allin');
                     alltick().then(alls => {
-                        console.log(alls);
+                        console.log(alls.template.columns[0]);
                         event.reply(alls).then(function (data) {
                             // success
                             console.log('success sent message' + data);
