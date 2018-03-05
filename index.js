@@ -34,7 +34,7 @@ bot.on('message', function(event) {
            getTickerData(currency).then(ticker=>event.reply(ticker))
         }*/
 
-        event.reply(msgs).then(function(data) {
+        event.reply(msg).then(function(data) {
             // success
             console.log('success sent message'+data);
         }).catch(function(error) {
