@@ -10,73 +10,7 @@ bot = linebot({
 });
 
 
-car = {
-    "type": "template",
-    "altText": "this is a carousel template",
-    "template": {
-        "type": "carousel",
-        "columns": [
-            {
-                "thumbnailImageUrl": "https://i.imgur.com/c8xbTT9.jpg",
-                "imageBackgroundColor": "#FFFFFF",
-                "title": "this is menu",
-                "text": "description",
-                "defaultAction": {
-                    "type": "uri",
-                    "label": "View detail",
-                    "uri": "https://poloniex.com/exchange"
-                },
-                "actions": [
-                    {
-                        "type": "postback",
-                        "label": "Buy",
-                        "data": "#usdt_xrp"
-                    },
-                    {
-                        "type": "postback",
-                        "label": "Add to cart",
-                        "data": "#usdt_eth"
-                    },
-                    {
-                        "type": "uri",
-                        "label": "View detail",
-                        "uri": "#usdt_btc"
-                    }
-                ]
-            },
-            {
-                "thumbnailImageUrl": "https://i.imgur.com/sYtzz7r.jpg",
-                "imageBackgroundColor": "#000000",
-                "title": "this is menu",
-                "text": "description",
-                "defaultAction": {
-                    "type": "uri",
-                    "label": "View detail",
-                    "uri": "http://example.com/page/222"
-                },
-                "actions": [
-                    {
-                        "type": "postback",
-                        "label": "Buy",
-                        "data": "action=buy&itemid=222"
-                    },
-                    {
-                        "type": "postback",
-                        "label": "Add to cart",
-                        "data": "action=add&itemid=222"
-                    },
-                    {
-                        "type": "uri",
-                        "label": "View detail",
-                        "uri": "http://example.com/page/222"
-                    }
-                ]
-            }
-        ],
-        "imageAspectRatio": "rectangle",
-        "imageSize": "cover"
-    }
-};
+
 
 function getTickerData(pair) {
     return rp('https://poloniex.com/public?command=returnTicker').then(data => {
@@ -302,8 +236,49 @@ bot.on('message', function (event) {
             let currency = msgs[1];
             try {
                 if (currency === 'ALL') {
-                    console.log(car);
-                    event.reply(car).then(function (data) {
+                    console.log('allin');
+                    event.reply({
+                        type: 'template',
+                        altText: 'this is a carousel template',
+                        template: {
+                            type: 'carousel',
+                            columns: [{
+                                thumbnailImageUrl: 'https://i.imgur.com/gZhCBuL.jpg',
+                                title: 'this is menu',
+                                text: 'description',
+                                actions: [{
+                                    type: 'postback',
+                                    label: 'Buy',
+                                    data: 'usdt_btc'
+                                }, {
+                                    type: 'postback',
+                                    label: 'Add to cart',
+                                    data: 'usdt_eth'
+                                }, {
+                                    type: 'uri',
+                                    label: 'View detail',
+                                    uri: 'https://poloniex.com/exchange#usdt_xrp'
+                                }]
+                            }, {
+                                thumbnailImageUrl: 'https://i.imgur.com/yLO1XBB.jpg',
+                                title: 'this is menu',
+                                text: 'description',
+                                actions: [{
+                                    type: 'postback',
+                                    label: 'Buy',
+                                    data: 'action=buy&itemid=222'
+                                }, {
+                                    type: 'postback',
+                                    label: 'Add to cart',
+                                    data: 'action=add&itemid=222'
+                                }, {
+                                    type: 'uri',
+                                    label: 'View detail',
+                                    uri: 'http://example.com/page/222'
+                                }]
+                            }]
+                        }
+                    }).then(function (data) {
                         // success
                         console.log('success sent message' + data);
                     }).catch(function (error) {
