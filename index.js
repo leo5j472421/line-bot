@@ -26,6 +26,24 @@ function getTickerData(pair) {
     });
 }
 
+/*
+[
+    1002,                             Channel
+    null,                             Unknown
+    [
+    121,                          CurrencyPairID
+    "10777.56054438",             Last
+    "10800.00000000",             lowestAsk
+    "10789.20000001",             highestBid
+    "-0.00860373",                percentChange
+    "72542984.79776118",          baseVolume
+    "6792.60163706",              quoteVolume
+    0,                            isForzen
+    "11400.00000000",             high24hr
+    "9880.00000009"               low24hr
+]
+]
+*/
 
 
 poloniex = function () {
@@ -45,6 +63,8 @@ poloniex = function () {
             //console.log(self.tick.USDT_ETH);
             try {
                 self.tick[cp].price = data[1];
+                self.tick[cp].high = data[8];
+                self.tick[cp].low = data[9];
                 self.tick[cp].volume = data[5];
                 self.tick[cp].change = data[4];
                 //console.log(self.tick);
@@ -67,7 +87,7 @@ poloniex = function () {
                     self.tick[d] = {
                         'price': data[d].last,
                         'volume': data[d].baseVolume,
-                        'change': data[d].percentChange,
+                        'change': (parseFloat(data[d].percentChange)*100).toString(),
                         'high': data[d].high24hr,
                         'low' : data[d].low24hr
                     };
@@ -134,7 +154,7 @@ poloniex = function () {
 
 
         function webSockets_subscribe(conn) {
-            console.log('subscribe');
+            console.log('開始訂閱');
             if (conn.readyState === 1) {
                 var params = {command: "subscribe", channel: 1002};
                 conn.send(JSON.stringify(params));
@@ -168,7 +188,7 @@ poloniex = function () {
                     tickEvent(data[2]);
                 } else if (channel === 1010) {
                     // heartbeat
-                } else if (self.marketChannel.indexOf(channel) !== -1) {
+                } /*else if (self.marketChannel.indexOf(channel) !== -1) {
                     tradeEvent(data[2], cp);
                     // Trade Event
                 } else {
@@ -177,7 +197,7 @@ poloniex = function () {
                         tradeInit(data[2][0][1].orderBook, cp);
                     }
                     // Trade init
-                } // end if
+                } // end if*/
 
 
             };
