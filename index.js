@@ -13,7 +13,7 @@ bot = linebot({
 function getTickerData(pair) {
     return rp('https://poloniex.com/public?command=returnTicker').then(data => {
         data = JSON.parse(data);
-        data = data['USDT' + pair];
+        data = data['USDT_' + pair];
         tick = {
             'price': data.last,
             'volume': data.baseVolume,
@@ -27,12 +27,13 @@ function getTickerData(pair) {
 bot.on('message', function(event) {
     if (event.message.type = 'text') {
         let msg = event.message.text;
-        let msgs = msg(/\S+/g);
+       /* let msgs = msg(/\S+/g);
         let action = msgs[0];
         if( action === '價格' || action === '$' ){
            let currency = msgs[1] ;
            getTickerData(currency).then(ticker=>event.reply(ticker))
-        }
+        }*/
+
         event.reply(msgs).then(function(data) {
             // success
             console.log('success sent message'+data);
@@ -52,4 +53,3 @@ var server = app.listen(process.env.PORT || 8080, function() {
     var port = server.address().port;
     console.log("App now running on port", port);
 });
-
