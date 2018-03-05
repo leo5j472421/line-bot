@@ -10,6 +10,74 @@ bot = linebot({
 });
 
 
+car = {
+    "type": "template",
+    "altText": "this is a carousel template",
+    "template": {
+        "type": "carousel",
+        "columns": [
+            {
+                "thumbnailImageUrl": "https://i.imgur.com/c8xbTT9.jpg",
+                "imageBackgroundColor": "#FFFFFF",
+                "title": "this is menu",
+                "text": "description",
+                "defaultAction": {
+                    "type": "uri",
+                    "label": "View detail",
+                    "uri": "https://poloniex.com/exchange"
+                },
+                "actions": [
+                    {
+                        "type": "postback",
+                        "label": "Buy",
+                        "data": "#usdt_xrp"
+                    },
+                    {
+                        "type": "postback",
+                        "label": "Add to cart",
+                        "data": "#usdt_eth"
+                    },
+                    {
+                        "type": "uri",
+                        "label": "View detail",
+                        "uri": "#usdt_btc"
+                    }
+                ]
+            },
+            {
+                "thumbnailImageUrl": "https://i.imgur.com/sYtzz7r.jpg",
+                "imageBackgroundColor": "#000000",
+                "title": "this is menu",
+                "text": "description",
+                "defaultAction": {
+                    "type": "uri",
+                    "label": "View detail",
+                    "uri": "http://example.com/page/222"
+                },
+                "actions": [
+                    {
+                        "type": "postback",
+                        "label": "Buy",
+                        "data": "action=buy&itemid=222"
+                    },
+                    {
+                        "type": "postback",
+                        "label": "Add to cart",
+                        "data": "action=add&itemid=222"
+                    },
+                    {
+                        "type": "uri",
+                        "label": "View detail",
+                        "uri": "http://example.com/page/222"
+                    }
+                ]
+            }
+        ],
+        "imageAspectRatio": "rectangle",
+        "imageSize": "cover"
+    }
+};
+
 function getTickerData(pair) {
     return rp('https://poloniex.com/public?command=returnTicker').then(data => {
         data = JSON.parse(data);
@@ -17,8 +85,8 @@ function getTickerData(pair) {
         tick = {
             'price': data.last,
             'high': data.high24hr,
-            'low' : data.low24hr,
-            'change': (parseFloat(data.percentChange)*100).toString()
+            'low': data.low24hr,
+            'change': (parseFloat(data.percentChange) * 100).toString()
         };
 
         console.log(tick);
@@ -54,7 +122,7 @@ poloniex = function () {
         this.ids = {};
         this.cps = {};
         this.marketChannel = [];
-        this.market = ['USDT_BTC', 'USDT_ETH' , 'USDT_LTC' , 'USDT_XRP' ];
+        this.market = ['USDT_BTC', 'USDT_ETH', 'USDT_LTC', 'USDT_XRP'];
         for (var cp in this.market)
             this.trade[this.market[cp]] = {'asks': {}, 'bids': {}}
 
@@ -66,7 +134,7 @@ poloniex = function () {
                 self.tick[cp].high = data[8];
                 self.tick[cp].low = data[9];
                 self.tick[cp].volume = data[5];
-                self.tick[cp].change = (parseFloat(data[4])*100).toString();
+                self.tick[cp].change = (parseFloat(data[4]) * 100).toString();
                 //console.log(self.tick);
             } catch (err) {
                 // tickInit is not finished yet
@@ -87,9 +155,9 @@ poloniex = function () {
                     self.tick[d] = {
                         'price': data[d].last,
                         'volume': data[d].baseVolume,
-                        'change': (parseFloat(data[d].percentChange)*100).toString(),
+                        'change': (parseFloat(data[d].percentChange) * 100).toString(),
                         'high': data[d].high24hr,
-                        'low' : data[d].low24hr
+                        'low': data[d].low24hr
                     };
                 }
                 return e.target
@@ -188,16 +256,17 @@ poloniex = function () {
                     tickEvent(data[2]);
                 } else if (channel === 1010) {
                     // heartbeat
-                } /*else if (self.marketChannel.indexOf(channel) !== -1) {
-                    tradeEvent(data[2], cp);
-                    // Trade Event
-                } else {
-                    if (data[2][0][0] === 'i') { // TradeInit
-                        self.marketChannel.push(channel);
-                        tradeInit(data[2][0][1].orderBook, cp);
-                    }
-                    // Trade init
-                } // end if*/
+                }
+                /*else if (self.marketChannel.indexOf(channel) !== -1) {
+                                   tradeEvent(data[2], cp);
+                                   // Trade Event
+                               } else {
+                                   if (data[2][0][0] === 'i') { // TradeInit
+                                       self.marketChannel.push(channel);
+                                       tradeInit(data[2][0][1].orderBook, cp);
+                                   }
+                                   // Trade init
+                               } // end if*/
 
 
             };
@@ -232,21 +301,26 @@ bot.on('message', function (event) {
         if (action === '價格' || action === '$') {
             let currency = msgs[1];
             try {
-                ticker = p.ws.tick['USDT_' + currency];
-                let string = '現在價格 : ' + ticker.price;
-                string += '\n過去24H最高價 : ' + ticker.high;
-                string += '\n過去24H最低價 : ' + ticker.low;
-                string += '\n漲幅 : ' + ticker.change + '%';
-                console.log(string);
-                event.reply(string).then(function (data) {
-                    // success
-                    console.log('success sent message' + data);
-                }).catch(function (error) {
-                    // error
-                    console.log('error');
-                });
+                if (currency === 'ALL') {
+                    console.log('reply all');
+                    event.reply(car)
+                } else {
+                    ticker = p.ws.tick['USDT_' + currency];
+                    let string = '現在價格 : ' + ticker.price;
+                    string += '\n過去24H最高價 : ' + ticker.high;
+                    string += '\n過去24H最低價 : ' + ticker.low;
+                    string += '\n漲幅 : ' + ticker.change + '%';
+                    console.log(string);
+                    event.reply(string).then(function (data) {
+                        // success
+                        console.log('success sent message' + data);
+                    }).catch(function (error) {
+                        // error
+                        console.log('error');
+                    });
+                }
             } catch (error) {
-                event.reply('不支援"'+currency+'"幣種');
+                event.reply('不支援"' + currency + '"幣種');
                 console.log(error);
             }
 
