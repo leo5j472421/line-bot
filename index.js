@@ -9,7 +9,6 @@ bot = linebot({
 });
 
 
-
 function getTickerData(pair) {
     return rp('https://poloniex.com/public?command=returnTicker').then(data => {
         data = JSON.parse(data);
@@ -24,20 +23,22 @@ function getTickerData(pair) {
 }
 
 
-bot.on('message', function(event) {
+bot.on('message', function (event) {
     if (event.message.type = 'text') {
         let msg = event.message.text;
-       /* let msgs = msg(/\S+/g);
-        let action = msgs[0];
-        if( action === '價格' || action === '$' ){
-           let currency = msgs[1] ;
-           getTickerData(currency).then(ticker=>event.reply(ticker))
-        }*/
 
-        event.reply(msg).then(function(data) {
+        let msgs = msg(/\S+/g);
+        console.log(msgs);
+        let action = msgs[0];
+        if (action === '價格' || action === '$') {
+            let currency = msgs[1];
+            getTickerData(currency).then(ticker => event.reply(ticker))
+        }
+
+        event.reply(msg).then(function (data) {
             // success
-            console.log('success sent message'+data);
-        }).catch(function(error) {
+            console.log('success sent message' + data);
+        }).catch(function (error) {
             // error
             console.log('error');
         });
@@ -49,7 +50,7 @@ const linebotParser = bot.parser();
 app.post('/', linebotParser);
 
 //因為 express 預設走 port 3000，而 heroku 上預設卻不是，要透過下列程式轉換
-var server = app.listen(process.env.PORT || 8080, function() {
+var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
 });
