@@ -1,22 +1,40 @@
-var linebot = require('linebot');
-var express = require('express');
+linebot = require('linebot');
+express = require('express');
+rp = require('request-promise');
 
-var bot = linebot({
+bot = linebot({
     channelId: '1566351681',
     channelSecret: '2d2a8e358747aec623d89d8a565a79fd',
     channelAccessToken: 'fGY0tObXfJlN1e+7xyj4B7G1a0dgXNNxP62pFAOsz5KJtY4z98ZiyYU5V/L3AKLzNClxTBbdO6J1zciD0bZlhsqhFab1GqsKyrvw4RWfGRDLVBMYSPilZ86Q8PjjZ6nbsw/p9pOY73KZUt+YaSP1GwdB04t89/1O/w1cDnyilFU='
 });
 
-bot.on('message', function(event) {
-    console.log('123456879'); //把收到訊息的 event 印出來看看
-});
+
+
+function getTickerData(pair) {
+    return rp('https://poloniex.com/public?command=returnTicker').then(data => {
+        data = JSON.parse(data);
+        data = data['USDT' + pair];
+        tick = {
+            'price': data.last,
+            'volume': data.baseVolume,
+            'change': data.percentChange
+        };
+        return tick
+    });
+}
+
 
 bot.on('message', function(event) {
     if (event.message.type = 'text') {
-        var msg = event.message.text;
+        let msgs = event.message.text.match(/\S+/g);
+        let action = msgs[0];
+        if( msgs === '價格' || msgs === '$' ){
+           let currency = msgs[1] ;
+           getTickerData(currency).then(ticker=>event.reply(ticker))
+        }
         event.reply(msg).then(function(data) {
             // success
-            console.log('success sent message'+msg);
+            console.log('success sent message'+data);
         }).catch(function(error) {
             // error
             console.log('error');
@@ -33,3 +51,4 @@ var server = app.listen(process.env.PORT || 8080, function() {
     var port = server.address().port;
     console.log("App now running on port", port);
 });
+
