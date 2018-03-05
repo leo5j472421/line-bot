@@ -243,6 +243,7 @@ p.start();
 allpair = ['BTC', 'ETH', 'LTC', 'XRP'];
 
 function alltick() {
+    console.log('alltick');
     return new Promise(function (resolve, reject) {
         all.template.columns = [];
         for (let index in allpair) {
@@ -261,8 +262,10 @@ function alltick() {
                 }]
             })
         }
+
+        console.log(all);
         resolve(all);
-    
+
     });
 
 }
@@ -279,7 +282,7 @@ bot.on('message', function (event) {
             try {
                 if (currency === 'ALL') {
                     console.log('allin');
-                    alltick().then(all => {
+                    alltick().then(() => {
                         event.reply(all).then(function (data) {
                             // success
                             console.log('success sent message' + data);
