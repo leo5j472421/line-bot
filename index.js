@@ -249,7 +249,7 @@ function alltick() {
         for (let index in allpair) {
             pair =  'USDT_'+allpair[index];
             all.template.columns.push({
-                thumbnailImageUrl: img[pair],
+                thumbnailImageUrl: img[allpair[index]],
                 title: pair,
                 text: '現在價格 : ' + p.ws.tick[pair].price,
                 actions: [{
