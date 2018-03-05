@@ -302,8 +302,14 @@ bot.on('message', function (event) {
             let currency = msgs[1];
             try {
                 if (currency === 'ALL') {
-                    console.log('reply all');
-                    event.reply(car)
+                    console.log(car);
+                    event.reply(car).then(function (data) {
+                        // success
+                        console.log('success sent message' + data);
+                    }).catch(function (error) {
+                        // error
+                        console.log('error');
+                    });
                 } else {
                     ticker = p.ws.tick['USDT_' + currency];
                     let string = '現在價格 : ' + ticker.price;
