@@ -11,6 +11,7 @@ bot = linebot({
 
 function getTickerData(pair) {
     return rp('https://poloniex.com/public?command=returnTicker').then(data => {
+        console.log('here')
         data = JSON.parse(data);
         data = data['USDT_' + pair];
         tick = {
@@ -18,6 +19,7 @@ function getTickerData(pair) {
             'volume': data.baseVolume,
             'change': data.percentChange
         };
+        console.log(tick);
         return tick
     });
 }
@@ -30,6 +32,7 @@ bot.on('message', function (event) {
         console.log(msgs);
         let action = msgs[0];
         if (action === '價格' || action === '$') {
+            console.log('in') ;
             let currency = msgs[1];
             getTickerData(currency).then(ticker => event.reply(ticker))
         }
