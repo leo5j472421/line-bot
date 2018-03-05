@@ -247,7 +247,7 @@ function alltick() {
     return new Promise(function (resolve, reject) {
         all.template.columns = [];
         for (let index in allpair) {
-            pair = 'USDT_' + allpair[index];
+            pair =  allpair[index];
             all.template.columns.push({
                 thumbnailImageUrl: img[pair],
                 title: pair,
