@@ -35,14 +35,14 @@ bot.on('message', function (event) {
         console.log(msgs);
         let action = msgs[0];
         if (action === '價格' || action === '$') {
-            console.log('in');
             let currency = msgs[1];
             getTickerData(currency).then(ticker => {
+                console.log('in');
                 let string = '現在價格 : ' + ticker.price ;
                 string = '\n過去24H最高價 : ' + ticker.high ;
                 string = '\n過去24H最低價 : ' + ticker.low ;
                 string = '\n漲幅 : ' + ticker.change ;
-                event.reply(ticker.toString())
+                event.reply(string);
             })
         }
 
