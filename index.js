@@ -39,21 +39,20 @@ bot.on('message', function (event) {
             getTickerData(currency).then(ticker => {
                 console.log('in22');
                 let string = '現在價格 : ' + ticker.price ;
-                string = '\n過去24H最高價 : ' + ticker.high ;
-                string = '\n過去24H最低價 : ' + ticker.low ;
-                string = '\n漲幅 : ' + ticker.change ;
+                string += '\n過去24H最高價 : ' + ticker.high ;
+                string += '\n過去24H最低價 : ' + ticker.low ;
+                string += '\n漲幅 : ' + ticker.change + '%';
                 console.log(string);
-                event.reply(string);
+                event.reply(string).then(function (data) {
+                    // success
+                    console.log('success sent message' + data);
+                }).catch(function (error) {
+                    // error
+                    console.log('error');
+                });
             })
         }
 
-        event.reply(msg).then(function (data) {
-            // success
-            console.log('success sent message' + data);
-        }).catch(function (error) {
-            // error
-            console.log('error');
-        });
     }
 });
 
