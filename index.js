@@ -254,12 +254,16 @@ function alltick() {
                 text: '現在價格 : ' + p.ws.tick[pair].price,
                 actions: [{
                     type: 'postback',
-                    label: '現在價格',
-                    url : 'http://lee-w-blog.logdown.com/posts/1148026-more-about-line-messaging-api-template-messages'
+                    label: 'Buy',
+                    data: 'action=buy&itemid=123'
                 }, {
                     type: 'postback',
-                    label: '漲幅 : ',
-                    url : 'https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Statements/try...catch'
+                    label: 'Add to cart',
+                    data: 'action=add&itemid=123'
+                }, {
+                    type: 'uri',
+                    label: 'View detail',
+                    uri: 'http://example.com/page/123'
                 }]
             })
         }
