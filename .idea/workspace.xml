@@ -42,7 +42,7 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
+            <state relative-caret-position="76">
               <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding />
             </state>
@@ -52,8 +52,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="274" column="49" lean-forward="true" selection-start-line="274" selection-start-column="49" selection-end-line="274" selection-end-column="49" />
+            <state relative-caret-position="190">
+              <caret line="253" column="1" lean-forward="true" selection-start-line="253" selection-start-column="1" selection-end-line="253" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -239,12 +239,13 @@
       <workItem from="1520242673748" duration="1245000" />
       <workItem from="1520299520326" duration="1540000" />
       <workItem from="1520301331640" duration="1796000" />
-      <workItem from="1520303142731" duration="1748000" />
+      <workItem from="1520303142731" duration="1793000" />
+      <workItem from="1520304950929" duration="100000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29269000" />
+    <option name="totallyTimeSpent" value="29414000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
@@ -650,7 +651,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
+        <state relative-caret-position="76">
           <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
@@ -658,8 +659,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="274" column="49" lean-forward="true" selection-start-line="274" selection-start-column="49" selection-end-line="274" selection-end-column="49" />
+        <state relative-caret-position="190">
+          <caret line="253" column="1" lean-forward="true" selection-start-line="253" selection-start-column="1" selection-end-line="253" selection-end-column="1" />
           <folding />
         </state>
       </provider>
