@@ -22,7 +22,6 @@ img = {
     'XRP': 'https://news4c.com/wp-content/uploads/2018/02/Ripple-Survives-Market-Crash.jpg'
 };
 
-
 all = {
     type: 'template',
     altText: 'this is a carousel template',
@@ -44,7 +43,7 @@ function getTickerData(pair) {
         };
 
         console.log(tick);
-        return tick
+        return tick;
     });
 }
 
@@ -67,7 +66,6 @@ function getTickerData(pair) {
 ]
 */
 
-
 poloniex = function () {
     socket = function () {
         var self = this;
@@ -77,8 +75,7 @@ poloniex = function () {
         this.cps = {};
         this.marketChannel = [];
         this.market = ['USDT_BTC', 'USDT_ETH', 'USDT_LTC', 'USDT_XRP'];
-        for (var cp in this.market)
-            this.trade[this.market[cp]] = {'asks': {}, 'bids': {}}
+        for (let cp in this.market) this.trade[this.market[cp]] = {'asks': {}, 'bids': {}};
 
         function tickEvent(data) {
             cp = self.ids[data[0]];
@@ -96,11 +93,9 @@ poloniex = function () {
             }
             //if (cp === 'USDT_ETH')
             //console.log(self.tick[cp].price)
-
         }
 
-
-        function getTickerData(e) {
+        function tickInit(e) {
             return rp('https://poloniex.com/public?command=returnTicker').then(data => {
                 data = JSON.parse(data);
                 for (let d in data) {
@@ -114,66 +109,34 @@ poloniex = function () {
                         'low': data[d].low24hr
                     };
                 }
-                return e.target
+                return e.target;
             });
         }
 
-        /*function tickInit(e) {
-            return new Promise(function (resolve, reject) {
-                request('https://poloniex.com/public?command=returnTicker', function (error, response, body) {
-                    if (!error && response.statusCode === 200) {
-                        data = JSON.parse(body);
-                        for (let d in data) {
-                            self.ids[data[d]['id']] = d;
-                            self.cps[d] = data[d]['id'];
-                            self.tick[d] = {
-                                'price': data[d].last,
-                                'volume': data[d].baseVolume,
-                                'change': data[d].percentChange,
-                                'high': data[d].high24hr,
-                                'low' : data[d].low24hr
-                            };
-                        }
-
-                        console.log('end for')
-                    }
-                });
-                resolve(e.target);
-            });
-
-        }*/
-
         function tradeEvent(datas, cp) {
             for (let i in datas) {
-                var data = datas[i];
+                let data = datas[i];
                 if (data[0] === 'o') {
                     side = data[1] ? 'bids' : 'asks';
                     if (data[3] === '0.00000000') {
                         delete self.trade[cp][side][data[2]];
-                    }
-                    else
-                        self.trade[cp][side][data[2]] = data[3]
-
+                    } else self.trade[cp][side][data[2]] = data[3];
                 }
             }
 
             n = Object.keys(self.trade[cp].asks).map(parseFloat);
             //console.log(Math.min(...n));
-
         }
 
-
         function tradeInit(data, cp) {
-            for (var a in [0, 1]) {
-                for (let rate in data[a]) { // 0 asks 1 bids
-                    if (a == 1)  // bids
-                        self.trade[cp].bids[rate] = data[a][rate];
-                    else
-                        self.trade[cp].asks[rate] = data[a][rate];
+            for (let a in [0, 1]) {
+                for (let rate in data[a]) {
+                    // 0 asks 1 bids
+                    if (a == 1) // bids
+                        self.trade[cp].bids[rate] = data[a][rate]; else self.trade[cp].asks[rate] = data[a][rate];
                 }
             }
         }
-
 
         function webSockets_subscribe(conn) {
             console.log('開始訂閱');
@@ -193,11 +156,8 @@ poloniex = function () {
 
             mySocket.onopen = function (e) {
 
-
-                getTickerData(e).then(webSockets_subscribe);
-
+                tickInit(e).then(webSockets_subscribe);
             };
-
 
             mySocket.onmessage = function (e) {
                 data = JSON.parse(e.data);
@@ -205,32 +165,28 @@ poloniex = function () {
                 channel = data[0];
                 var cp = self.ids[channel];
                 if (channel === 1002) {
-                    if (data[1] === 1)
-                        return; // subscript 1002 success
+                    if (data[1] === 1) return; // subscript 1002 success
                     tickEvent(data[2]);
                 } else if (channel === 1010) {
-                    // heartbeat
                 }
-                /*else if (self.marketChannel.indexOf(channel) !== -1) {
-                                   tradeEvent(data[2], cp);
-                                   // Trade Event
-                               } else {
-                                   if (data[2][0][0] === 'i') { // TradeInit
-                                       self.marketChannel.push(channel);
-                                       tradeInit(data[2][0][1].orderBook, cp);
-                                   }
-                                   // Trade init
-                               } // end if*/
+                // heartbeat
 
-
+                else if (self.marketChannel.indexOf(channel) !== -1) {
+                    tradeEvent(data[2], cp);
+                    // Trade Event
+                } else {
+                    if (data[2][0][0] === 'i') { // TradeInit
+                        self.marketChannel.push(channel);
+                        tradeInit(data[2][0][1].orderBook, cp);
+                    }
+                    // Trade init
+                } // end if
             };
 
             mySocket.onclose = function () {
                 console.log("Websocket connection closed");
             };
-
         };
-
     };
 
     //this.t = new tick();
@@ -239,9 +195,7 @@ poloniex = function () {
         this.ws = new socket();
         this.ws.start();
     };
-
 };
-
 
 p = new poloniex();
 p.start();
@@ -253,7 +207,7 @@ function alltick() {
     return new Promise(function (resolve, reject) {
         all.template.columns = [];
         for (let index in allpair) {
-            pair =  'USDT_'+allpair[index];
+            pair = 'USDT_' + allpair[index];
             all.template.columns.push({
                 thumbnailImageUrl: img[allpair[index]],
                 title: pair,
@@ -271,14 +225,53 @@ function alltick() {
                     label: 'View detail',
                     uri: 'http://example.com/page/123'
                 }]
-            })
+            });
         }
         resolve(all);
+    });
+}
 
+function replyAll(event) {
+    return new Promise((resolve, reject) => {
+        alltick().then(alls => {
+            console.log(alls.template.columns[0]);
+            event.reply([alls, {
+                type: "sticker",
+                packageId: "1",
+                stickerId: "10"
+            }]).then(function (data) {
+                // success
+                console.log('success sent message' + data);
+                resolve();
+            }).catch(function (error) {
+                // error
+                console.log('error66');
+            });
+        });
     });
 
 }
 
+function replyTick(event, currency) {
+    return new Promise((resolve, reject) => {
+        ticker = p.ws.tick['USDT_' + currency];
+        let string = '現在價格 : ' + ticker.price;
+        string += '\n過去24H最高價 : ' + ticker.high;
+        string += '\n過去24H最低價 : ' + ticker.low;
+        string += '\n漲幅 : ' + ticker.change + '%';
+        console.log(string);
+        event.reply(string).then(function (data) {
+            // success
+            console.log('success sent message' + data);
+            resolve();
+        }).catch(function (error) {
+            // error
+            event.reply('6不支援"' + currency + '"幣種');
+            console.log('error');
+
+        })
+    });
+}
 
 bot.on('message', function (event) {
     if (event.message.type = 'text') {
@@ -288,56 +281,25 @@ bot.on('message', function (event) {
         let action = msgs[0];
         if (action === '價格' || action === '$') {
             let currency = msgs[1];
-            try {
-                if (currency === 'ALL') {
-                    alltick().then(alls => {
-                        console.log(alls.template.columns[0]);
-                        event.reply(alls).then(function (data) {
-                            // success
-                            console.log('success sent message' + data);
-                        }).catch(function (error) {
-                            // error
-                            console.log('error');
-                        });
-                    });
-
-                } else {
-                    ticker = p.ws.tick['USDT_' + currency];
-                    let string = '現在價格 : ' + ticker.price;
-                    string += '\n過去24H最高價 : ' + ticker.high;
-                    string += '\n過去24H最低價 : ' + ticker.low;
-                    string += '\n漲幅 : ' + ticker.change + '%';
-                    console.log(string);
-                    event.reply(string).then(function (data) {
-                        // success
-                        console.log('success sent message' + data);
-                    }).catch(function (error) {
-                        // error
-                        console.log('error');
-                    });
-                }
-            } catch (error) {
-                event.reply('不支援"' + currency + '"幣種');
-                console.log(error);
-            }
-
-            /*getTickerData(currency).then(ticker => {
-                console.log('in22');
-                let string = '現在價格 : ' + ticker.price ;
-                string += '\n過去24H最高價 : ' + ticker.high ;
-                string += '\n過去24H最低價 : ' + ticker.low ;
-                string += '\n漲幅 : ' + ticker.change + '%';
-                console.log(string);
-                event.reply(string).then(function (data) {
-                    // success
-                    console.log('success sent message' + data);
-                }).catch(function (error) {
-                    // error
-                    console.log('error');
+            if (currency === 'ALL') {
+                replyAll(event);
+            } else {
+                replyTick(event, currency).catch(err => {
+                    event.reply('不支援"' + currency + '"幣種')
                 });
-            })*/
+            }
+        } else {
+            if (action === '我申請了入金，為什麼還沒收到?') {
+                let string = '申請後不會立即出金\n出金需要三個工作日的人工審核時間';
+                event.reply([string, {
+                    type: "sticker",
+                    packageId: "1",
+                    stickerId: "104"
+                }]).then(() => {
+                    console.log('send success');
+                })
+            }
         }
-
     }
 });
 
