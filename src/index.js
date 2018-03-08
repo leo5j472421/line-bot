@@ -106,7 +106,7 @@ function replyTick(event, currency) {
 }
 
 bot.on('postback',(event)=>{
-    console.log(event.message.text());
+    console.log(event.postback.data);
 });
 
 bot.on('message', function (event) {
