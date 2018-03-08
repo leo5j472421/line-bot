@@ -134,6 +134,7 @@ bot.on('message', function (event) {
                 });
             }
         } else {
+            console.log(p.ws.tick.USDT_ETH);
             jieba(action).then(result => {
                 console.log(p.ws.tick.USDT_ETH);
                 console.log(result);
@@ -146,7 +147,7 @@ bot.on('message', function (event) {
                         stickerId: "104"
                     }]).then(() => {
                         console.log('send success');
-                        console.log(p.ws.tick.USDT_ETH);
+
                     })
                 }
 

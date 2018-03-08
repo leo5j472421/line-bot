@@ -110,6 +110,17 @@ module.exports = function () {
                 tickInit(e).then(webSockets_subscribe);
             };
 
+            mySocket.onclose = function (e) {
+
+                console.log('Socket Close');
+            };
+
+            mySocket.onerror = function (e) {
+
+                console.log('Socket Error');
+                console.log(e);
+            };
+
             mySocket.onmessage = function (e) {
                 data = JSON.parse(e.data);
                 //console.log(data);
