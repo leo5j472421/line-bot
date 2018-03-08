@@ -138,9 +138,44 @@ bot.on('message', function (event) {
             jieba(msg).then(result => {
                 console.log(exchange.ws.tick.USDT_ETH);
                 console.log(result);
-                if (result.indexOf('入金') !== -1 && result.indexOf('沒收到') !== -1) {
-                    let string = '申請後不會立即出金\n出金需要三個工作日的人工審核時間';
+                if (result.indexOf('出金') !== -1 && result.indexOf('沒收到') !== -1 && result.indexOf('完成') !== -1) {
+                    let string = '區塊鏈需要時間處理交易Blah blah blah';
+                    event.reply([string, {
+                        type: "template",
+                        altText: "This is a buttons template",
+                        template: {
+                            type: "buttons",
+                            thumbnailImageUrl: "https://cdn-images-1.medium.com/max/640/1*rv85RFa5z9_tMWo5QodVew.jpeg",
+                            imageAspectRatio: "rectangle",
+                            imageSize: "cover",
+                            imageBackgroundColor: "#FFFFFF",
+                            title: "區塊鏈帳本",
+                            text: "選擇要查詢的幣種",
+                            defaultAction: {
+                                type: "uri",
+                                label: "View detail",
+                                uri: "http://example.com/page/123"
+                            },
+                            actions: [
+                                {
+                                    type: "uri",
+                                    label: "比特幣",
+                                    data: "https://www.blocktrail.com/BTC"
+                                },
+                                {
+                                    type: "uri",
+                                    label: "乙太幣",
+                                    uri: "https://etherscan.io/"
+                                }
+                            ]
+                        }
+                    }]).then(() => {
+                        console.log('send success');
 
+                    })
+
+                } else if (result.indexOf('出金') !== -1 && result.indexOf('沒收到') !== -1) {
+                    let string = '申請後不會立即出金\n出金需要三個工作日的人工審核時間\n超過中午12點，視為隔日申請';
                     event.reply([string, {
                         type: "sticker",
                         packageId: "1",
