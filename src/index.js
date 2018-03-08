@@ -5,8 +5,6 @@ rp = require('request-promise');
 poloniex= require('./ExchangeApi/wsApi');
 
 
-console.log(s(20,7));
-
 
 bot = linebot({
     channelId: '1566351681',
