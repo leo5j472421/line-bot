@@ -10,7 +10,8 @@ dict2 = require('../scripts/data/dict_custom.js');
 });
 */
 function l (text) {
-    return node_jieba_parsing([dict2], text)
+    return new Promise(resolve => resolve(['入金','沒收到']));
+    //return node_jieba_parsing([dict2], text)
 }
 
 module.exports = l;

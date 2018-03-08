@@ -135,7 +135,7 @@ bot.on('message', function (event) {
             }
         } else {
             console.log(p.ws.tick.USDT_ETH);
-            jieba(action).then(result => {
+            jieba(msg).then(result => {
                 console.log(p.ws.tick.USDT_ETH);
                 console.log(result);
                 if (result.indexOf('入金') !== -1 && result.indexOf('沒收到') !== -1) {
