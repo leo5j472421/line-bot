@@ -3,11 +3,11 @@ express = require('express');
 WebSocket = require('ws');
 rp = require('request-promise');
 
-/*import {fruit, person, multiply} from 'ExchangeApi/ResetApi.js'
+import {fruit, person, multiply} from 'ExchangeApi/ResetApi.js'
 
 
 console.log(fruit);
-*/
+
 
 bot = linebot({
     channelId: '1566351681',
