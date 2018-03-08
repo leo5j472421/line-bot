@@ -153,8 +153,8 @@ bot.on('message', function (event) {
                             text: "選擇要查詢的幣種",
                             defaultAction: {
                                 type: "uri",
-                                label: "View detail",
-                                uri: "http://example.com/page/123"
+                                label: "乙太幣",
+                                uri: "https://etherscan.io/"
                             },
                             actions: [
                                 {
