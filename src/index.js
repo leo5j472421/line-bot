@@ -2,7 +2,8 @@ linebot = require('linebot');
 express = require('express');
 WebSocket = require('ws');
 rp = require('request-promise');
-poloniex= require('./ExchangeApi/wsApi');
+poloniex = require('./ExchangeApi/wsApi');
+jieba = require('./jieba-js/node.js/node');
 
 
 
@@ -13,10 +14,10 @@ bot = linebot({
 });
 
 url = {
-    'BTC': ['https://i.ebayimg.com/images/g/9H0AAOSwh5hZ5P8g/s-l300.jpg','https://bitcoin.org/en/'],
-    'ETH': ['https://steemitimages.com/DQmdfgYyo81i2bRSnFW5zyRYJYEx8taaBrzL7akWR3Rez7k/ethereum%20moon.jpg','https://www.ethereum.org/'],
-    'LTC': ['https://cryptocurrencynews.com/wp-content/uploads/sites/3/2018/02/Litecoin-Price-Watch-LTC-USD-Breaks-Above-230-678x381.jpg','https://litecoin.org/'],
-    'XRP': ['https://news4c.com/wp-content/uploads/2018/02/Ripple-Survives-Market-Crash.jpg','https://ripple.com/']
+    'BTC': ['https://i.ebayimg.com/images/g/9H0AAOSwh5hZ5P8g/s-l300.jpg', 'https://bitcoin.org/en/'],
+    'ETH': ['https://steemitimages.com/DQmdfgYyo81i2bRSnFW5zyRYJYEx8taaBrzL7akWR3Rez7k/ethereum%20moon.jpg', 'https://www.ethereum.org/'],
+    'LTC': ['https://cryptocurrencynews.com/wp-content/uploads/sites/3/2018/02/Litecoin-Price-Watch-LTC-USD-Breaks-Above-230-678x381.jpg', 'https://litecoin.org/'],
+    'XRP': ['https://news4c.com/wp-content/uploads/2018/02/Ripple-Survives-Market-Crash.jpg', 'https://ripple.com/']
 };
 
 all = {
@@ -47,7 +48,7 @@ function alltick() {
                 actions: [{
                     type: 'postback',
                     label: '價格資料',
-                    data: JSON.stringify({currency: allpair[index],action:'tickData'})
+                    data: JSON.stringify({currency: allpair[index], action: 'tickData'})
                 }, {
                     type: 'uri',
                     label: 'View detail',
@@ -101,10 +102,11 @@ function replyTick(event, currency) {
     });
 }
 
-bot.on('postback',(event)=>{
-    data =  JSON.parse(event.postback.data);
+bot.on('postback', (event) => {
+    data = JSON.parse(event.postback.data);
     console.log(data);
-    replyTick(event,data.currency);
+    if (data.action === 'tickData')
+        replyTick(event, data.currency);
 });
 
 bot.on('message', function (event) {
@@ -123,6 +125,20 @@ bot.on('message', function (event) {
                 });
             }
         } else {
+            jieba(action).then(result=>{
+                console.log(result);
+                if  ( result.indexOf('入金') !== -1 && result.indexOf('沒收到') !== -1 ){
+                    event.reply([string, {
+                        type: "sticker",
+                        packageId: "1",
+                        stickerId: "104"
+                    }]).then(() => {
+                        console.log('send success');
+                    })
+                }
+
+            });
+            /*
             if (action === '我申請了入金，為什麼還沒收到?') {
                 let string = '申請後不會立即出金\n出金需要三個工作日的人工審核時間';
                 event.reply([string, {
@@ -132,7 +148,7 @@ bot.on('message', function (event) {
                 }]).then(() => {
                     console.log('send success');
                 })
-            }
+            }*/
         }
     }
 });
