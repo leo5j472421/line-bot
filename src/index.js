@@ -47,7 +47,7 @@ function alltick() {
                 actions: [{
                     type: 'postback',
                     label: '價格資料',
-                    data: {currency: allpair[index],action:'tickData'}
+                    data: JSON.stringify({currency: allpair[index],action:'tickData'})
                 }, {
                     type: 'uri',
                     label: 'View detail',
@@ -102,7 +102,7 @@ function replyTick(event, currency) {
 }
 
 bot.on('postback',(event)=>{
-    data =  event.postback.data;
+    data =  JSON.parse(event.postback.data);
     console.log(data);
     replyTick(event,data.currency);
 });
