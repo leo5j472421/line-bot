@@ -134,9 +134,7 @@ bot.on('message', function (event) {
                 });
             }
         } else {
-            console.log(exchange.ws.tick.USDT_ETH);
             jieba(msg).then(result => {
-                console.log(exchange.ws.tick.USDT_ETH);
                 console.log(result);
                 if (result.indexOf('出金') !== -1 && result.indexOf('沒收到') !== -1 && result.indexOf('完成') !== -1) {
                     let string = '區塊鏈需要時間處理交易Blah blah blah';
@@ -186,7 +184,7 @@ bot.on('message', function (event) {
 
                     })
                 }
-
+//dfghdfgh
             });
             /*
             if (action === '我申請了入金，為什麼還沒收到?') {
