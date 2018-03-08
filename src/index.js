@@ -6,7 +6,9 @@ poloniex = require('./ExchangeApi/wsApi');
 jieba = require('./jieba-js/node.js/node');
 
 
-jieba('入金為什麼沒收到?').then(r => { console.log(r)});
+jieba('入金為什麼沒收到?').then(r => {
+    console.log(r)
+});
 
 
 bot = linebot({
@@ -32,13 +34,15 @@ all = {
 };
 
 
-p = new poloniex();
-p.start();
+function start() {
+    p = new poloniex();
+    p.start();
+}
 
+start();
 allpair = ['BTC', 'ETH', 'LTC', 'XRP'];
 
 function alltick() {
-    console.log('@@@');
     return new Promise(function (resolve, reject) {
         all.template.columns = [];
         for (let index in allpair) {
@@ -117,19 +121,22 @@ bot.on('message', function (event) {
         let msgs = msg.match(/\S+/g);
         console.log(msgs);
         let action = msgs[0];
-        if (action === '價格' || action === '$') {
+        if (action === 'restart')
+            start();
+        else if (action === '價格' || action === '$') {
             let currency = msgs[1].toUpperCase();
             if (currency === 'ALL') {
                 replyAll(event);
             } else {
                 replyTick(event, currency).catch(err => {
+                    console.log(err);
                     event.reply('不支援"' + currency + '"幣種')
                 });
             }
         } else {
-            jieba(action).then(result=>{
+            jieba(action).then(result => {
                 console.log(result);
-                if  ( result.indexOf('入金') !== -1 && result.indexOf('沒收到') !== -1 ){
+                if (result.indexOf('入金') !== -1 && result.indexOf('沒收到') !== -1) {
                     let string = '申請後不會立即出金\n出金需要三個工作日的人工審核時間';
                     event.reply([string, {
                         type: "sticker",
