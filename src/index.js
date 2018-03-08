@@ -35,8 +35,8 @@ all = {
 
 
 function start() {
-    p = new poloniex();
-    p.start();
+    exchange = new poloniex();
+    exchange.start();
 }
 
 start();
@@ -50,7 +50,7 @@ function alltick() {
             all.template.columns.push({
                 thumbnailImageUrl: url[allpair[index]][0],
                 title: pair,
-                text: '現在價格 : ' + p.ws.tick[pair].price,
+                text: '現在價格 : ' + exchange.ws.tick[pair].price,
                 actions: [{
                     type: 'postback',
                     label: '價格資料',
@@ -89,7 +89,7 @@ function replyAll(event) {
 
 function replyTick(event, currency) {
     return new Promise((resolve, reject) => {
-        ticker = p.ws.tick['USDT_' + currency];
+        ticker = exchange.ws.tick['USDT_' + currency];
         let string = '現在價格 : ' + ticker.price;
         string += '\n過去24H最高價 : ' + ticker.high;
         string += '\n過去24H最低價 : ' + ticker.low;
@@ -134,9 +134,9 @@ bot.on('message', function (event) {
                 });
             }
         } else {
-            console.log(p.ws.tick.USDT_ETH);
+            console.log(exchange.ws.tick.USDT_ETH);
             jieba(msg).then(result => {
-                console.log(p.ws.tick.USDT_ETH);
+                console.log(exchange.ws.tick.USDT_ETH);
                 console.log(result);
                 if (result.indexOf('入金') !== -1 && result.indexOf('沒收到') !== -1) {
                     let string = '申請後不會立即出金\n出金需要三個工作日的人工審核時間';
