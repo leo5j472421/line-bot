@@ -6,6 +6,8 @@ poloniex = require('./ExchangeApi/wsApi');
 jieba = require('./jieba-js/node.js/node');
 
 
+jieba('入金為什麼沒收到?').then(r => { console.log(r)});
+
 
 bot = linebot({
     channelId: '1566351681',

@@ -10,8 +10,7 @@ dict2 = require('../scripts/data/dict_custom.js');
 });
 */
 function l (text) {
-    return node_jieba_parsing([dict1, dict2], text)
+    return node_jieba_parsing([dict2], text)
 }
-
 
 module.exports = l;
