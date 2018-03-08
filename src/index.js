@@ -184,7 +184,7 @@ bot.on('message', function (event) {
 
                     })
                 }
-//dfghdfgh
+//d
             });
             /*
             if (action === '我申請了入金，為什麼還沒收到?') {
