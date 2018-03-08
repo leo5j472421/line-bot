@@ -140,6 +140,7 @@ bot.on('message', function (event) {
                 console.log(result);
                 if (result.indexOf('出金') !== -1 && result.indexOf('沒收到') !== -1 && result.indexOf('完成') !== -1) {
                     let string = '區塊鏈需要時間處理交易Blah blah blah';
+
                     event.reply([string, {
                         type: "template",
                         altText: "This is a buttons template",
@@ -160,7 +161,7 @@ bot.on('message', function (event) {
                                 {
                                     type: "uri",
                                     label: "比特幣",
-                                    data: "https://www.blocktrail.com/BTC"
+                                    uri: "https://www.blocktrail.com/BTC"
                                 },
                                 {
                                     type: "uri",
