@@ -135,10 +135,11 @@ bot.on('message', function (event) {
             }
         } else {
             jieba(action).then(result => {
+                console.log(p.ws.tick.USDT_ETH);
                 console.log(result);
                 if (result.indexOf('入金') !== -1 && result.indexOf('沒收到') !== -1) {
                     let string = '申請後不會立即出金\n出金需要三個工作日的人工審核時間';
-                    console.log(p.ws.tick.USDT_ETH);
+
                     event.reply([string, {
                         type: "sticker",
                         packageId: "1",
