@@ -12,11 +12,11 @@ bot = linebot({
     channelAccessToken: 'fGY0tObXfJlN1e+7xyj4B7G1a0dgXNNxP62pFAOsz5KJtY4z98ZiyYU5V/L3AKLzNClxTBbdO6J1zciD0bZlhsqhFab1GqsKyrvw4RWfGRDLVBMYSPilZ86Q8PjjZ6nbsw/p9pOY73KZUt+YaSP1GwdB04t89/1O/w1cDnyilFU='
 });
 
-img = {
-    'BTC': 'https://i.ebayimg.com/images/g/9H0AAOSwh5hZ5P8g/s-l300.jpg',
-    'ETH': 'https://steemitimages.com/DQmdfgYyo81i2bRSnFW5zyRYJYEx8taaBrzL7akWR3Rez7k/ethereum%20moon.jpg',
-    'LTC': 'https://cryptocurrencynews.com/wp-content/uploads/sites/3/2018/02/Litecoin-Price-Watch-LTC-USD-Breaks-Above-230-678x381.jpg',
-    'XRP': 'https://news4c.com/wp-content/uploads/2018/02/Ripple-Survives-Market-Crash.jpg'
+url = {
+    'BTC': ['https://i.ebayimg.com/images/g/9H0AAOSwh5hZ5P8g/s-l300.jpg','https://bitcoin.org/en/'],
+    'ETH': ['https://steemitimages.com/DQmdfgYyo81i2bRSnFW5zyRYJYEx8taaBrzL7akWR3Rez7k/ethereum%20moon.jpg','https://www.ethereum.org/'],
+    'LTC': ['https://cryptocurrencynews.com/wp-content/uploads/sites/3/2018/02/Litecoin-Price-Watch-LTC-USD-Breaks-Above-230-678x381.jpg','https://litecoin.org/'],
+    'XRP': ['https://news4c.com/wp-content/uploads/2018/02/Ripple-Survives-Market-Crash.jpg','https://ripple.com/']
 };
 
 all = {
@@ -41,21 +41,17 @@ function alltick() {
         for (let index in allpair) {
             pair = 'USDT_' + allpair[index];
             all.template.columns.push({
-                thumbnailImageUrl: img[allpair[index]],
+                thumbnailImageUrl: url[allpair[index]][0],
                 title: pair,
                 text: '現在價格 : ' + p.ws.tick[pair].price,
                 actions: [{
                     type: 'postback',
-                    label: 'Buy',
-                    data: 'action=buy&itemid=123'
-                }, {
-                    type: 'postback',
-                    label: 'Add to cart',
-                    data: 'action=add&itemid=123'
+                    label: '價格資料',
+                    data: {currency: allpair[index],action:'tickData'}
                 }, {
                     type: 'uri',
                     label: 'View detail',
-                    uri: 'http://example.com/page/123'
+                    uri: url[allpair[index]][1]
                 }]
             });
         }
@@ -106,7 +102,9 @@ function replyTick(event, currency) {
 }
 
 bot.on('postback',(event)=>{
-    console.log(event.postback.data);
+    data =  event.postback.data;
+    console.log(data);
+    replyTick(event,data.currency);
 });
 
 bot.on('message', function (event) {
