@@ -228,6 +228,39 @@ bot.on('message', function (event) {
                     }).then(() => {
                         console.log('send success')
                     })
+                } else if (result.indexOf('知識') !== -1 && result.indexOf('問答') !== -1) {
+                    event.reply({
+                        type: "template",
+                        altText: "This is a buttons template",
+                        template: {
+                            type: "buttons",
+                            thumbnailImageUrl: "https://www.geotourismturkey.com/wp-content/uploads/2009/10/geo-tourism-frequently-asked-questions.jpg",
+                            imageAspectRatio: "rectangle",
+                            imageSize: "cover",
+                            imageBackgroundColor: "#FFFFFF",
+                            title: "常見問題集",
+                            text: "關於出入金的常見問答集",
+                            defaultAction: {
+                                type: "uri",
+                                label: "入金常見問題",
+                                uri: "https://blocksfuturehelp.zendesk.com/hc/zh-tw/categories/115000501514-%E5%85%A5%E9%87%91"
+                            },
+                            actions: [
+                                {
+                                    type: "uri",
+                                    label: "出金常見問題",
+                                    uri: "https://blocksfuturehelp.zendesk.com/hc/zh-tw/categories/115000501534-%E5%87%BA%E9%87%91"
+                                },
+                                {
+                                    type: "uri",
+                                    label: "入金常見問題",
+                                    uri: "https://blocksfuturehelp.zendesk.com/hc/zh-tw/categories/115000501514-%E5%85%A5%E9%87%91"
+                                }
+                            ]
+                        }
+                    }).then(() => {
+                        console.log('send success')
+                    })
                 }
 //d
             });
