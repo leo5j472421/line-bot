@@ -123,7 +123,6 @@ module.exports = function () {
 
             mySocket.onmessage = function (e) {
                 data = JSON.parse(e.data);
-                //console.log(data);
                 channel = data[0];
                 var cp = self.ids[channel];
                 if (channel === 1002) {

@@ -140,6 +140,63 @@ bot.on('message', function (event) {
                     let string = '區塊鏈需要時間處理交易Blah blah blah';
 
                     event.reply([string, {
+                        type: 'template',
+                        altText: 'this is a carousel template',
+                        template: {
+                            type: 'carousel',
+                            columns: [{
+                                thumbnailImageUrl: "https://www.hungaryfoundation.org/wp-content/uploads/2016/03/contact.jpg",
+                                title: "填寫回報單",
+                                text: "請註明當初申請出金的金額，重新發送的手續費",
+                                actions: [
+                                    {
+                                        type: "uri",
+                                        label: "回報單",
+                                        uri: "https://blocksfuturehelp.zendesk.com/hc/zh-tw/requests/new"
+                                    },
+                                    {
+                                        type: "uri",
+                                        label: "FQA",
+                                        uri: "https://blocksfuturehelp.zendesk.com/hc/zh-tw"
+                                    }
+                                ]
+                            },{
+                                thumbnailImageUrl: "https://cdn-images-1.medium.com/max/640/1*rv85RFa5z9_tMWo5QodVew.jpeg",
+                                title: "區塊鏈帳本",
+                                text: "選擇要查詢的幣種",
+                                actions: [
+                                    {
+                                        type: "uri",
+                                        label: "比特幣",
+                                        uri: "https://www.blocktrail.com/BTC"
+                                    },
+                                    {
+                                        type: "uri",
+                                        label: "乙太幣",
+                                        uri: "https://etherscan.io/"
+                                    }
+                                ]
+                            }
+
+                            ]
+                        }
+                    }]).then(() => {
+                        console.log('send success');
+
+                    })
+
+                } else if (result.indexOf('出金') !== -1 && result.indexOf('沒收到') !== -1) {
+                    let string = '申請後不會立即出金\n出金需要三個工作日的人工審核時間\n超過中午12點，視為隔日申請';
+                    event.reply([string, {
+                        type: "sticker",
+                        packageId: "1",
+                        stickerId: "104"
+                    }]).then(() => {
+                        console.log('send success');
+
+                    })
+                } else if (result.indexOf('查詢') !== -1 && (result.indexOf('交易') !== -1 || result.indexOf('帳本') !== -1)) {
+                    event.reply({
                         type: "template",
                         altText: "This is a buttons template",
                         template: {
@@ -168,20 +225,8 @@ bot.on('message', function (event) {
                                 }
                             ]
                         }
-                    }]).then(() => {
-                        console.log('send success');
-
-                    })
-
-                } else if (result.indexOf('出金') !== -1 && result.indexOf('沒收到') !== -1) {
-                    let string = '申請後不會立即出金\n出金需要三個工作日的人工審核時間\n超過中午12點，視為隔日申請';
-                    event.reply([string, {
-                        type: "sticker",
-                        packageId: "1",
-                        stickerId: "104"
-                    }]).then(() => {
-                        console.log('send success');
-
+                    }).then(() => {
+                        console.log('send success')
                     })
                 }
 //d
