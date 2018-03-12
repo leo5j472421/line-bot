@@ -97,6 +97,8 @@ function replyTick(event, currency) {
     });
 }
 
+
+
 bot.on('postback', (event) => {
     console.log('in postdata');
     try {
