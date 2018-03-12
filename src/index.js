@@ -5,12 +5,6 @@ rp = require('request-promise');
 poloniex = require('./ExchangeApi/wsApi');
 jieba = require('./jieba-js/node.js/node');
 
-
-jieba('入金為什麼沒收到?').then(r => {
-    console.log(r)
-});
-
-
 bot = linebot({
     channelId: '1566351681',
     channelSecret: '2d2a8e358747aec623d89d8a565a79fd',
@@ -110,12 +104,14 @@ function replyTick(event, currency) {
 
 bot.on('postback', (event) => {
     data = JSON.parse(event.postback.data);
+    console.log('postback data');
     console.log(data);
     if (data.action === 'tickData')
         replyTick(event, data.currency);
 });
 
 bot.on('message', function (event) {
+    console.log('user ID: '+event.message.userId);
     if (event.message.type = 'text') {
         let msg = event.message.text;
         let msgs = msg.match(/\S+/g);
