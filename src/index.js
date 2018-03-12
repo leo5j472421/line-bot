@@ -111,7 +111,7 @@ bot.on('postback', (event) => {
 });
 
 bot.on('message', function (event) {
-    console.log('user ID: '+event.message.userId);
+    console.log('user ID: '+ event.source.userId);
     if (event.message.type = 'text') {
         let msg = event.message.text;
         let msgs = msg.match(/\S+/g);
