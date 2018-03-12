@@ -84,10 +84,10 @@ function replyAll(event) {
 function replyTick(event, currency) {
     return new Promise((resolve, reject) => {
         ticker = exchange.ws.tick['USDT_' + currency];
-        let string = '現在價格 : ' + ticker.price;
-        string += '\n過去24H最高價 : ' + ticker.high;
-        string += '\n過去24H最低價 : ' + ticker.low;
-        string += '\n漲幅 : ' + ticker.change + '%';
+        let string = currency +'價格資訊:\n現在價格 : ' + ticker.price;
+        string += '\n過去24H最高價 : ' + ticker.toFixed(3) ;
+        string += '\n過去24H最低價 : ' + ticker.toFixed(3)  ;
+        string += '\n漲幅 : ' + ticker.change.toFixed(3)  + '%';
         console.log(string);
         event.reply(string).then(function (data) {
             // success
@@ -111,7 +111,6 @@ bot.on('postback', (event) => {
         data = event.postback.data;
     }
 
-    console.log(data.currency);
     if (data.action === 'tickData')
         replyTick(event, data.currency);
 });
