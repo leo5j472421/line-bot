@@ -36,7 +36,7 @@ module.exports = function () {
                 self.tick[cp].high = data[8];
                 self.tick[cp].low = data[9];
                 self.tick[cp].volume = data[5];
-                self.tick[cp].change = (parseFloat(data[4]) * 100).toString();
+                self.tick[cp].change =parseFloat(data[4]) * 100;
                 //console.log(self.tick);
             } catch (err) {
                 // tickInit is not finished yet
@@ -55,7 +55,7 @@ module.exports = function () {
                     self.tick[d] = {
                         'price': data[d].last,
                         'volume': data[d].baseVolume,
-                        'change': (parseFloat(data[d].percentChange) * 100).toString(),
+                        'change': parseFloat(data[d].percentChange) * 100,
                         'high': data[d].high24hr,
                         'low': data[d].low24hr
                     };
