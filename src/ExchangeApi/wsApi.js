@@ -32,10 +32,10 @@ module.exports = function () {
             cp = self.ids[data[0]];
             //console.log(self.tick.USDT_ETH);
             try {
-                self.tick[cp].price = data[1];
-                self.tick[cp].high = data[8];
-                self.tick[cp].low = data[9];
-                self.tick[cp].volume = data[5];
+                self.tick[cp].price = parseFloat(data[1]);
+                self.tick[cp].high = parseFloat(data[8]);
+                self.tick[cp].low = parseFloat(data[9]);
+                self.tick[cp].volume = parseFloat(data[5]);
                 self.tick[cp].change =parseFloat(data[4]) * 100;
                 //console.log(self.tick);
             } catch (err) {
@@ -53,11 +53,11 @@ module.exports = function () {
                     self.ids[data[d]['id']] = d;
                     self.cps[d] = data[d]['id'];
                     self.tick[d] = {
-                        'price': data[d].last,
-                        'volume': data[d].baseVolume,
+                        'price': parseFloat(data[d].last),
+                        'volume': parseFloat(data[d].baseVolume),
                         'change': parseFloat(data[d].percentChange) * 100,
-                        'high': data[d].high24hr,
-                        'low': data[d].low24hr
+                        'high': parseFloat(data[d].high24hr),
+                        'low': parseFloat(data[d].low24hr)
                     };
                 }
                 return e.target;
