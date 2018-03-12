@@ -261,12 +261,12 @@ bot.on('message', function (event) {
                     })
                 } else {
                     let string = '很抱歉系統無法辨識你的問題，請填寫表單回報你的問題';
-                    event.reply([{
+                    event.reply([string,{
                         type: "template",
                         altText: "This is a buttons template",
                         template: {
                             type: "buttons",
-                            thumbnailImageUrl: "https://rukminim1.flixcart.com/image/832/832/mug/j/4/m/1-lolprint-sorry-please-forgive-me-sad-face-original-imae7ag3xhfzgahg.jpeg?q=70",
+                            thumbnailImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4FpwMxT88YnZg7C2a279SXJSTi86JYNkM13AL7b7ChjQqd8rt",
                             imageAspectRatio: "rectangle",
                             imageSize: "cover",
                             imageBackgroundColor: "#FFFFFF",
