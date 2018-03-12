@@ -257,20 +257,47 @@ bot.on('message', function (event) {
                     }).then(() => {
                         console.log('send success')
                     })
+                } else {
+                    let string = '很抱歉系統無法辨識你的問題，請填寫表單回報你的問題';
+                    event.reply([{
+                        type: "template",
+                        altText: "This is a buttons template",
+                        template: {
+                            type: "buttons",
+                            thumbnailImageUrl: "https://rukminim1.flixcart.com/image/832/832/mug/j/4/m/1-lolprint-sorry-please-forgive-me-sad-face-original-imae7ag3xhfzgahg.jpeg?q=70",
+                            imageAspectRatio: "rectangle",
+                            imageSize: "cover",
+                            imageBackgroundColor: "#FFFFFF",
+                            title: "回報問題",
+                            text: "請聯絡表單通知客服人員",
+                            defaultAction: {
+                                type: "uri",
+                                label: "入金常見問題",
+                                uri: "https://blocksfuturehelp.zendesk.com/hc/zh-tw/categories/115000501514-%E5%85%A5%E9%87%91"
+                            },
+                            actions: [
+                                {
+                                    type: "uri",
+                                    label: "常見問題集",
+                                    uri: "https://blocksfuturehelp.zendesk.com/hc/zh-tw"
+                                },
+                                {
+                                    type: "uri",
+                                    label: "填寫回報單",
+                                    uri: "https://blocksfuturehelp.zendesk.com/hc/zh-tw/requests/new"
+                                }
+                            ]
+                        }
+                    },{
+                        type: "sticker",
+                        packageId: "1",
+                        stickerId: "135"
+                    }]).then(() => {
+                        console.log('send success')
+                    })
                 }
-//d
             });
-            /*
-            if (action === '我申請了入金，為什麼還沒收到?') {
-                let string = '申請後不會立即出金\n出金需要三個工作日的人工審核時間';
-                event.reply([string, {
-                    type: "sticker",
-                    packageId: "1",
-                    stickerId: "104"
-                }]).then(() => {
-                    console.log('send success');
-                })
-            }*/
+
         }
     }
 });
