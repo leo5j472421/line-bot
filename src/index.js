@@ -104,8 +104,9 @@ function replyTick(event, currency) {
 
 bot.on('postback', (event) => {
     console.log('in postdata');
+    console.log('postback data:' + data );
     data = JSON.parse(event.postback.data);
-    console.log('postback data' + data );
+
     if (data.action === 'tickData')
         replyTick(event, data.currency);
 });
