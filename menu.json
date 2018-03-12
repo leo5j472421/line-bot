@@ -1,0 +1,84 @@
+{
+    "size":{
+        "width":2500,
+        "height":1686
+    },
+    "selected":false,
+    "name":"Controller",
+    "chatBarText":"Controller",
+    "areas":[
+        {
+          "bounds":{
+              "x":0,
+              "y":0,
+              "width":833,
+              "height":843
+          },
+          "action":{
+              "type":"postback",
+			  "label" : "BTC",
+              "data":"action=buy&itemid=BTC"
+          }
+        },
+        {
+          "bounds":{
+              "x":0,
+              "y":833,
+              "width":833,
+              "height":843
+          },
+          "action":{
+              "type":"postback",
+              "data":"{currency: BTC, action: 'tickData'}"
+          }
+        },
+        {
+          "bounds":{
+              "x":0,
+              "y":1666,
+              "width":833,
+              "height":843
+          },
+          "action":{
+              "type":"postback",
+              "data":"{currency: LTC, action: 'tickData'}"
+          }
+        },
+        {
+          "bounds":{
+              "x":843,
+              "y":0,
+              "width":833,
+              "height":843
+          },
+          "action":{
+              "type":"postback",
+              "data":"{currency: XEP, action: 'tickData'}"
+          }
+        },
+        {
+          "bounds":{
+              "x":833,
+              "y":643,
+              "width":833,
+              "height":843
+          },
+          "action":{
+              "type":"postback",
+              "data":"{currency: ETC, action: 'tickData'}"
+          }
+        },
+        {
+          "bounds":{
+              "x":1666,
+              "y":843,
+              "width":833,
+              "height":843
+          },
+          "action":{
+              "type":"postback",
+              "data":"{currency: BCH, action: 'tickData'}"
+          }
+        }
+    ]
+  }
