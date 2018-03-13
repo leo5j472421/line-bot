@@ -208,7 +208,7 @@ exports.deleteRichMenu = function (id){
     });
 };
 
-exports.linkToUser = function(user,richmenu){
+exports.linkToUser = function(user,richmenu) {
     return new Promise((resolve,reject)=>{
 
         let headers = {
@@ -222,6 +222,9 @@ exports.linkToUser = function(user,richmenu){
             'headers': headers
         };
 
+        console.log(user);
+        console.log(richmenu);
+        
         rp(options).then(data=>{
             if ( exports.isEmptyObject(JSON.parse(data)) )
                 console.log( 'success link '+ richmenu + 'to user ' + user );
