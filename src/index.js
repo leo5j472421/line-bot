@@ -42,7 +42,7 @@ function start() {
 }
 
 function stringInArrary(arr, string) {
-    return !arr.indexOf(string) === -1
+    return arr.indexOf(string) !== -1
 }
 
 start();
@@ -193,7 +193,8 @@ bot.on('message', function (event) {
 
                     })
 
-                } else if (stringInArrary(result, '出金') && stringInArrary(result, '沒收到')) {
+                }
+                else if (stringInArrary(result, '出金') && stringInArrary(result, '沒收到')) {
                     let string = '請留意，申請後不會立即出金：\n' +
                         '\n' +
                         '出金需要三個工作日的人工審核時間\n' +
@@ -211,21 +212,25 @@ bot.on('message', function (event) {
                         console.log('send success');
 
                     })
-                } else if (stringInArrary(result, '帳號') && stringInArrary(result, '不存在')) {
+                }
+                else if (stringInArrary(result, '帳號') && stringInArrary(result, '不存在')) {
                     let string = '為避免您的帳號被他人盜用，輸入錯誤密碼時僅顯示不存在此帳號\n' +
                         ' \n' +
                         '若無法找回，可使用忘記密碼功能尋回';
                     event.reply(string)
-                } else if (stringInArrary(result, '註冊信')) {
+                }
+                else if (stringInArrary(result, '註冊信')) {
                     let string = '建議使用Gmail註冊\n' +
                         ' \n' +
                         '避免使用Yahoo信箱、Hotmail\n\n' +
                         '不然可能漏收註冊信';
                     event.reply(string);
-                } else if (stringInArrary(result, '入金') && stringInArrary(result, '時間')) {
+                }
+                else if (stringInArrary(result, '入金') && stringInArrary(result, '時間')) {
                     let string = '申請入金時間 \n 隨時(網站維修除外，事前將另行公告)';
                     event.reply(string);
-                } else if (stringInArrary(result, '查詢') && (stringInArrary(result, '交易') || stringInArrary(result, '帳本'))) {
+                }
+                else if (stringInArrary(result, '查詢') && (stringInArrary(result, '交易') || stringInArrary(result, '帳本'))) {
                     event.reply({
                         'type': "template",
                         'altText': "This is a buttons template",
@@ -258,7 +263,8 @@ bot.on('message', function (event) {
                     }).then(() => {
                         console.log('send success')
                     })
-                } else if (stringInArrary(result, '知識') && stringInArrary(result, '問答')) {
+                }
+                else if (stringInArrary(result, '知識') && stringInArrary(result, '問答')) {
                     event.reply({
                         'type': "template",
                         'altText': "This is a buttons template",
@@ -291,12 +297,14 @@ bot.on('message', function (event) {
                     }).then(() => {
                         console.log('send success')
                     })
-                } else if (stringInArrary(result, '兩步驗證') && stringInArrary(result, '兩步驟驗證')) {
+                }
+                else if (stringInArrary(result, '兩步驗證') && stringInArrary(result, '兩步驟驗證')) {
                     let string = '我們強烈建議客戶啟用二階段驗證(Two-Factor Authentication，簡稱2FA)，它可以有效防止他人登入您的帳戶\n' +
                         ' \n' +
                         '同時，請備份您的二階段認證系統';
                     event.reply([string, sticker(2, 175)])
-                } else {
+                }
+                else {
                     let string = '很抱歉系統無法辨識你的問題，建議請先利用知識庫尋找您的問題，';
                     string += '通常80%以上的問題都可以在知識庫得到解答，';
                     string += '如我在知識庫找不到您的問題在請麻煩填寫表單回報你的問題';

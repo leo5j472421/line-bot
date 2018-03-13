@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a169cf9-6a69-4141-a48b-0227faffcd18" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
-      <change beforePath="$PROJECT_DIR$/src/jieba-js/scripts/data/dict_custom.js" afterPath="$PROJECT_DIR$/src/jieba-js/scripts/data/dict_custom.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -103,8 +103,18 @@
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="418">
-              <caret line="43" column="38" lean-forward="true" selection-start-line="43" selection-start-column="38" selection-end-line="43" selection-end-column="38" />
-              <folding />
+              <caret line="215" column="51" lean-forward="false" selection-start-line="215" selection-start-column="51" selection-end-line="215" selection-end-column="51" />
+              <folding>
+                <element signature="e#4665#7193#0" expanded="false" />
+                <element signature="e#7282#7999#0" expanded="false" />
+                <element signature="e#8088#8293#0" expanded="false" />
+                <element signature="e#8350#8582#0" expanded="false" />
+                <element signature="e#8670#8795#0" expanded="false" />
+                <element signature="e#8917#10484#0" expanded="false" />
+                <element signature="e#10572#12376#0" expanded="false" />
+                <element signature="e#12469#12726#0" expanded="false" />
+                <element signature="e#12748#14645#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -330,12 +340,12 @@
       <workItem from="1520922024042" duration="1714000" />
       <workItem from="1520923851120" duration="1614000" />
       <workItem from="1520925656946" duration="1793000" />
-      <workItem from="1520927466964" duration="414000" />
+      <workItem from="1520927466964" duration="655000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71186000" />
+    <option name="totallyTimeSpent" value="71427000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -376,7 +386,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -398,7 +410,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="855">
           <caret line="45" column="36" lean-forward="true" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
-          <folding />
+          <folding>
+            <element signature="e#4665#7193#0" expanded="false" />
+            <element signature="e#7282#7999#0" expanded="false" />
+            <element signature="e#8088#8293#0" expanded="false" />
+            <element signature="e#8350#8582#0" expanded="false" />
+            <element signature="e#8670#8795#0" expanded="false" />
+            <element signature="e#8917#10484#0" expanded="false" />
+            <element signature="e#10572#12376#0" expanded="false" />
+            <element signature="e#12469#12726#0" expanded="false" />
+            <element signature="e#12748#14645#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -435,7 +457,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="551">
           <caret line="29" column="29" lean-forward="false" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
-          <folding />
+          <folding>
+            <element signature="e#4665#7193#0" expanded="false" />
+            <element signature="e#7282#7999#0" expanded="false" />
+            <element signature="e#8088#8293#0" expanded="false" />
+            <element signature="e#8350#8582#0" expanded="false" />
+            <element signature="e#8670#8795#0" expanded="false" />
+            <element signature="e#8917#10484#0" expanded="false" />
+            <element signature="e#10572#12376#0" expanded="false" />
+            <element signature="e#12469#12726#0" expanded="false" />
+            <element signature="e#12748#14645#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -458,7 +490,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="855">
           <caret line="45" column="18" lean-forward="true" selection-start-line="45" selection-start-column="18" selection-end-line="45" selection-end-column="18" />
-          <folding />
+          <folding>
+            <element signature="e#4665#7193#0" expanded="false" />
+            <element signature="e#7282#7999#0" expanded="false" />
+            <element signature="e#8088#8293#0" expanded="false" />
+            <element signature="e#8350#8582#0" expanded="false" />
+            <element signature="e#8670#8795#0" expanded="false" />
+            <element signature="e#8917#10484#0" expanded="false" />
+            <element signature="e#10572#12376#0" expanded="false" />
+            <element signature="e#12469#12726#0" expanded="false" />
+            <element signature="e#12748#14645#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -495,7 +537,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="2" column="16" lean-forward="false" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-          <folding />
+          <folding>
+            <element signature="e#4665#7193#0" expanded="false" />
+            <element signature="e#7282#7999#0" expanded="false" />
+            <element signature="e#8088#8293#0" expanded="false" />
+            <element signature="e#8350#8582#0" expanded="false" />
+            <element signature="e#8670#8795#0" expanded="false" />
+            <element signature="e#8917#10484#0" expanded="false" />
+            <element signature="e#10572#12376#0" expanded="false" />
+            <element signature="e#12469#12726#0" expanded="false" />
+            <element signature="e#12748#14645#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -518,7 +570,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="20" column="20" lean-forward="false" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
-          <folding />
+          <folding>
+            <element signature="e#4665#7193#0" expanded="false" />
+            <element signature="e#7282#7999#0" expanded="false" />
+            <element signature="e#8088#8293#0" expanded="false" />
+            <element signature="e#8350#8582#0" expanded="false" />
+            <element signature="e#8670#8795#0" expanded="false" />
+            <element signature="e#8917#10484#0" expanded="false" />
+            <element signature="e#10572#12376#0" expanded="false" />
+            <element signature="e#12469#12726#0" expanded="false" />
+            <element signature="e#12748#14645#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -548,7 +610,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="20" column="20" lean-forward="false" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
-          <folding />
+          <folding>
+            <element signature="e#4665#7193#0" expanded="false" />
+            <element signature="e#7282#7999#0" expanded="false" />
+            <element signature="e#8088#8293#0" expanded="false" />
+            <element signature="e#8350#8582#0" expanded="false" />
+            <element signature="e#8670#8795#0" expanded="false" />
+            <element signature="e#8917#10484#0" expanded="false" />
+            <element signature="e#10572#12376#0" expanded="false" />
+            <element signature="e#12469#12726#0" expanded="false" />
+            <element signature="e#12748#14645#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -571,7 +643,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="20" column="20" lean-forward="true" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
-          <folding />
+          <folding>
+            <element signature="e#4665#7193#0" expanded="false" />
+            <element signature="e#7282#7999#0" expanded="false" />
+            <element signature="e#8088#8293#0" expanded="false" />
+            <element signature="e#8350#8582#0" expanded="false" />
+            <element signature="e#8670#8795#0" expanded="false" />
+            <element signature="e#8917#10484#0" expanded="false" />
+            <element signature="e#10572#12376#0" expanded="false" />
+            <element signature="e#12469#12726#0" expanded="false" />
+            <element signature="e#12748#14645#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -601,7 +683,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="21" column="3" lean-forward="false" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
-          <folding />
+          <folding>
+            <element signature="e#4665#7193#0" expanded="false" />
+            <element signature="e#7282#7999#0" expanded="false" />
+            <element signature="e#8088#8293#0" expanded="false" />
+            <element signature="e#8350#8582#0" expanded="false" />
+            <element signature="e#8670#8795#0" expanded="false" />
+            <element signature="e#8917#10484#0" expanded="false" />
+            <element signature="e#10572#12376#0" expanded="false" />
+            <element signature="e#12469#12726#0" expanded="false" />
+            <element signature="e#12748#14645#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -661,26 +753,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ExchangeApi/ResetApi.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mysql.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/jieba-js/scripts/data/dict_custom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -703,10 +779,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/src/jieba-js/scripts/data/dict_custom.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="15" lean-forward="false" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+        <state relative-caret-position="646">
+          <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ExchangeApi/ResetApi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -719,11 +803,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="15" lean-forward="false" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
-          <caret line="43" column="38" lean-forward="true" selection-start-line="43" selection-start-column="38" selection-end-line="43" selection-end-column="38" />
-          <folding />
+          <caret line="215" column="51" lean-forward="false" selection-start-line="215" selection-start-column="51" selection-end-line="215" selection-end-column="51" />
+          <folding>
+            <element signature="e#4665#7193#0" expanded="false" />
+            <element signature="e#7282#7999#0" expanded="false" />
+            <element signature="e#8088#8293#0" expanded="false" />
+            <element signature="e#8350#8582#0" expanded="false" />
+            <element signature="e#8670#8795#0" expanded="false" />
+            <element signature="e#8917#10484#0" expanded="false" />
+            <element signature="e#10572#12376#0" expanded="false" />
+            <element signature="e#12469#12726#0" expanded="false" />
+            <element signature="e#12748#14645#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
