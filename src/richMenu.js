@@ -111,7 +111,7 @@ exports.createRichMenu = function () {
         return id ;
     });
 
-}
+};
 
 
 /*
@@ -177,7 +177,7 @@ exports.getRichMenuList = function () {
     };
     return rp(options).then(body => {
         let data = JSON.parse(body).richmenus[0] ;
-        console.log(data);
+        //console.log(data);
         return data;
     });
 };
@@ -224,7 +224,7 @@ exports.linkToUser = function(user,richmenu) {
 
         console.log(user);
         console.log(richmenu);
-        
+
         rp(options).then(data=>{
             if ( exports.isEmptyObject(JSON.parse(data)) )
                 console.log( 'success link '+ richmenu + 'to user ' + user );
