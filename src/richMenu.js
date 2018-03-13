@@ -6,7 +6,7 @@ rq = require( 'request' );
 channelAccessToken = 'fGY0tObXfJlN1e+7xyj4B7G1a0dgXNNxP62pFAOsz5KJtY4z98ZiyYU5V/L3AKLzNClxTBbdO6J1zciD0bZlhsqhFab1GqsKyrvw4RWfGRDLVBMYSPilZ86Q8PjjZ6nbsw/p9pOY73KZUt+YaSP1GwdB04t89/1O/w1cDnyilFU=';
 
 
-function createRichMenu() {
+exports.createRichMenu = function () {
     let headers = {
         "Content-Type": 'application/json',
         "Authorization": 'Bearer {'+channelAccessToken+'}'
@@ -166,7 +166,7 @@ function uploadImage(){
 }
 */
 
-function getRichMenuList() {
+exports.getRichMenuList = function () {
     let headers = {
         'Authorization': 'Bearer {'+channelAccessToken+'}'
     };
@@ -176,22 +176,22 @@ function getRichMenuList() {
         'headers' : headers
     };
     return rp(options).then(body => {
-        let data = JSON.parse(body).richmenus ;
+        let data = JSON.parse(body).richmenus[0] ;
         console.log(data);
         return data;
     });
-}
+};
 
-function deleteAllRichMenu(){
+exports.deleteAllRichMenu =  function (){
     return getRichMenuList().then( data => {
         for ( let index in data ){
             deleteRichMenu(data[index].richMenuId);
         }
 
     } );
-}
+};
 
-function deleteRichMenu(id){
+exports.deleteRichMenu = function (id){
     let headers = {
         'Authorization': 'Bearer {'+channelAccessToken+'}'
     };
@@ -206,9 +206,9 @@ function deleteRichMenu(id){
         if ( isEmptyObject(JSON.parse(body)) )
           console.log('Success delete rich menu : '+ id);
     });
-}
+};
 
-function linkToUser(user,richmenu){
+exports.linkToUser = function(user,richmenu){
     return new Promise((resolve,reject)=>{
 
         let headers = {
@@ -227,11 +227,9 @@ function linkToUser(user,richmenu){
                 console.log( 'success link '+ richmenu + 'to user ' + user );
         })
     })
-}
+};
 
-function isEmptyObject(obj) {
+exports.isEmptyObject = function(obj) {
     return !Object.keys(obj).length;
-}
+};
 
-
-getRichMenuList();

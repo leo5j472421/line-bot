@@ -4,6 +4,12 @@ WebSocket = require('ws');
 rp = require('request-promise');
 poloniex = require('./ExchangeApi/wsApi');
 jieba = require('./jieba-js/node.js/node');
+richMenu = require('./richMenu');
+
+richMenu.getRichMenuList().then(menu => {
+    console.log(menu.richMenuId)
+});
+
 
 bot = linebot({
     'channelId': '1566351681',
@@ -105,6 +111,14 @@ function replyTick(event, currency) {
     });
 }
 
+
+bot.on('follow', (event => {
+    let userid = event.source.userId;
+    richMenu.getRichMenuList(menu => {
+        let menuid = menu.richMenuId;
+        richMenu.linkToUser(userid,menuid);
+    }).then(()=>console.log('link successful'))
+}));
 
 bot.on('postback', (event) => {
     console.log('in postdata');
@@ -301,9 +315,9 @@ bot.on('message', function (event) {
                 else if ((stringInArrary(result, '兩步驗證') || stringInArrary(result, '兩步驟驗證')) && stringInArrary(result, '遺失')) {
                     let string = '一旦遺失，請填寫回報單處理，為了您的帳戶安全，我們不接受以回報單以外任何形式申請\n' +
                         ' \n' +
-                        '找回二階段認證需時較長，工程團隊會主動與您聯繫' ;
+                        '找回二階段認證需時較長，工程團隊會主動與您聯繫';
 
-                    event.reply([string,{
+                    event.reply([string, {
                         'type': "template",
                         'altText': "This is a buttons template",
                         'template': {
@@ -332,7 +346,7 @@ bot.on('message', function (event) {
                                 }
                             ]
                         }
-                    },sticker(2, 175)])
+                    }, sticker(2, 175)])
                 }
                 else if (stringInArrary(result, '兩步驗證') || stringInArrary(result, '兩步驟驗證')) {
                     let string = '我們強烈建議客戶啟用二階段驗證(Two-Factor Authentication，簡稱2FA)，它可以有效防止他人登入您的帳戶\n' +
