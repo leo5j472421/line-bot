@@ -29,7 +29,6 @@ all = {
     }
 };
 
-
 function sticker(pkg, id) {
     return {
         "type": "sticker",
@@ -110,11 +109,8 @@ function replyTick(event, currency) {
 
 bot.on('follow', (event => {
     let userid = event.source.userId;
-    richMenu.getRichMenuList(menu => {
-        id = menu.richMenuId ;
-        return id ;
-    }).then((menuid) => {
-        console.log(menuid);
+    richMenu.getRichMenuList().then((menu) => {
+        let menuid = menu.richMenuId ;
         richMenu.linkToUser(userid, menuid).then(() => {
             console.log('link successful');
             event.reply('肛溫訂閱')
