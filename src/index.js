@@ -111,8 +111,10 @@ function replyTick(event, currency) {
 bot.on('follow', (event => {
     let userid = event.source.userId;
     richMenu.getRichMenuList(menu => {
-        return menu.richMenuId;
+        id = menu.richMenuId ;
+        return id ;
     }).then((menuid) => {
+        console.log(menuid);
         richMenu.linkToUser(userid, menuid).then(() => {
             console.log('link successful');
             event.reply('肛溫訂閱')
