@@ -141,7 +141,7 @@ bot.on('message', function (event) {
         } else {
             jieba(msg).then(result => {
                 console.log(result);
-                if (stringInArrary(result, '出金') && stringInArrary(arr, '沒收到') && stringInArrary(arr, '完成')) {
+                if (stringInArrary(result, '出金') && stringInArrary(result, '沒收到') && stringInArrary(result, '完成')) {
                     let string = '區塊鏈需要時間處理交易，交易速度會依照您當初出金設定的手續費高低而定\n' +
                         '如果希望能夠快速到帳，請設定較高的手續費\n' +
                         '我們無法對已經在鏈上的交易作出任何干預(包括Unconfirmed Transactions)\n' +
