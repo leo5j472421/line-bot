@@ -19,16 +19,16 @@ url = {
 };
 
 all = {
-    "type" : 'template',
-    "altText" : 'this is a carousel template',
+    "type": 'template',
+    "altText": 'this is a carousel template',
     "template": {
-        "type" : 'carousel',
-        "columns" : []
+        "type": 'carousel',
+        "columns": []
     }
 };
 
 
-function sticker(pkg,id){
+function sticker(pkg, id) {
     return {
         "type": "sticker",
         "packageId": pkg.toString(),
@@ -41,6 +41,9 @@ function start() {
     exchange.start();
 }
 
+function stringInArrary(arr,string){
+    return arr.indexOf(string) === -1
+}
 start();
 allpair = ['BTC', 'ETH', 'LTC', 'XRP'];
 
@@ -56,11 +59,11 @@ function alltick() {
                 "actions": [{
                     "type": 'postback',
                     "label": '價格資料',
-                    "data" : JSON.stringify({currency: allpair[index], action: 'tickData'})
+                    "data": JSON.stringify({currency: allpair[index], action: 'tickData'})
                 }, {
                     "type": 'uri',
                     "label": 'View detail',
-                    "uri" : url[allpair[index]][1]
+                    "uri": url[allpair[index]][1]
                 }]
             });
         }
@@ -72,11 +75,7 @@ function replyAll(event) {
     return new Promise((resolve, reject) => {
         alltick().then(alls => {
             console.log(alls.template.columns[0]);
-            event.reply([alls, {
-                "type" : "sticker",
-                "packageId" : "1",
-                "stickerId": "10"
-            }]).then(function (data) {
+            event.reply([alls, sticker(1, 10)]).then(function (data) {
                 // success
                 console.log('success sent message' + data);
                 resolve();
@@ -92,9 +91,9 @@ function replyAll(event) {
 function replyTick(event, currency) {
     return new Promise((resolve, reject) => {
         ticker = exchange.ws.tick['USDT_' + currency];
-        let string = currency +'價格資訊:\n現在價格 : ' + ticker.price.toFixed(3) ;
-        string += '\n過去24H最高價 : ' + ticker.high.toFixed(3) ;
-        string += '\n過去24H最低價 : ' + ticker.low.toFixed(3) ;
+        let string = currency + '價格資訊:\n現在價格 : ' + ticker.price.toFixed(3);
+        string += '\n過去24H最高價 : ' + ticker.high.toFixed(3);
+        string += '\n過去24H最低價 : ' + ticker.low.toFixed(3);
         string += '\n漲幅 : ' + ticker.change.toFixed(3) + '%';
         console.log(string);
         event.reply(string).then(function (data) {
@@ -106,12 +105,11 @@ function replyTick(event, currency) {
 }
 
 
-
 bot.on('postback', (event) => {
     console.log('in postdata');
     try {
         data = JSON.parse(event.postback.data);
-    } catch (e){
+    } catch (e) {
         console.log(e);
         data = event.postback.data;
     }
@@ -121,7 +119,7 @@ bot.on('postback', (event) => {
 });
 
 bot.on('message', function (event) {
-    console.log('user ID: '+ event.source.userId);
+    console.log('user ID: ' + event.source.userId);
     if (event.message.type = 'text') {
         let msg = event.message.text;
         let msgs = msg.match(/\S+/g);
@@ -142,7 +140,7 @@ bot.on('message', function (event) {
         } else {
             jieba(msg).then(result => {
                 console.log(result);
-                if (result.indexOf('出金') !== -1 && result.indexOf('沒收到') !== -1 && result.indexOf('完成') !== -1) {
+                if ( stringInArrary(result,'出金') &&  stringInArrary(arr,'沒收到') && stringInArrary(arr,'完成') ) {
                     let string = '區塊鏈需要時間處理交易Blah blah blah';
 
                     event.reply([string, {
@@ -166,7 +164,7 @@ bot.on('message', function (event) {
                                         'uri': "https://blocksfuturehelp.zendesk.com/hc/zh-tw"
                                     }
                                 ]
-                            },{
+                            }, {
                                 'thumbnailImageUrl': "https://cdn-images-1.medium.com/max/640/1*rv85RFa5z9_tMWo5QodVew.jpeg",
                                 'title': "區塊鏈帳本",
                                 'text': "選擇要查詢的幣種",
@@ -193,7 +191,7 @@ bot.on('message', function (event) {
 
                 } else if (result.indexOf('出金') !== -1 && result.indexOf('沒收到') !== -1) {
                     let string = '申請後不會立即出金\n出金需要三個工作日的人工審核時間\n超過中午12點，視為隔日申請';
-                    event.reply([string, sticker(1,104)]).then(() => {
+                    event.reply([string, sticker(1, 104)]).then(() => {
                         console.log('send success');
 
                     })
@@ -263,9 +261,14 @@ bot.on('message', function (event) {
                     }).then(() => {
                         console.log('send success')
                     })
+                } else if (result.indexOf('兩步驗證') !== -1 && result.indexOf('兩步驟驗證') !== -1) {
+                    let string = '我們強烈建議客戶啟用二階段驗證(Two-Factor Authentication，簡稱2FA)，它可以有效防止他人登入您的帳戶\n' +
+                        ' \n' +
+                        '同時，請備份您的二階段認證系統';
+                    event.reply([string,sticker(2,175)])
                 } else {
                     let string = '很抱歉系統無法辨識你的問題，請填寫表單回報你的問題';
-                    event.reply([string,{
+                    event.reply([string, {
                         'type': "template",
                         'altText': "This is a buttons template",
                         'template': {
@@ -294,7 +297,7 @@ bot.on('message', function (event) {
                                 }
                             ]
                         }
-                    },sticker(1,135)]).then(() => {
+                    }, sticker(1, 135)]).then(() => {
                         console.log('send success')
                     })
                 }
