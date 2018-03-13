@@ -19,14 +19,22 @@ url = {
 };
 
 all = {
-    type: 'template',
-    altText: 'this is a carousel template',
-    template: {
-        type: 'carousel',
-        columns: []
+    "type" : 'template',
+    "altText" : 'this is a carousel template',
+    "template": {
+        "type" : 'carousel',
+        "columns" : []
     }
 };
 
+
+function sticker(pkg,id){
+    return {
+        "type": "sticker",
+        "packageId": pkg.toString(),
+        "stickerId": id.toString()
+    }
+}
 
 function start() {
     exchange = new poloniex();
@@ -42,17 +50,17 @@ function alltick() {
         for (let index in allpair) {
             pair = 'USDT_' + allpair[index];
             all.template.columns.push({
-                thumbnailImageUrl: url[allpair[index]][0],
-                title: pair,
-                text: '現在價格 : ' + exchange.ws.tick[pair].price,
-                actions: [{
-                    type: 'postback',
-                    label: '價格資料',
-                    data: JSON.stringify({currency: allpair[index], action: 'tickData'})
+                "thumbnailImageUrl": url[allpair[index]][0],
+                "title": pair,
+                "text": '現在價格 : ' + exchange.ws.tick[pair].price,
+                "actions": [{
+                    "type": 'postback',
+                    "label": '價格資料',
+                    "data" : JSON.stringify({currency: allpair[index], action: 'tickData'})
                 }, {
-                    type: 'uri',
-                    label: 'View detail',
-                    uri: url[allpair[index]][1]
+                    "type": 'uri',
+                    "label": 'View detail',
+                    "uri" : url[allpair[index]][1]
                 }]
             });
         }
@@ -65,9 +73,9 @@ function replyAll(event) {
         alltick().then(alls => {
             console.log(alls.template.columns[0]);
             event.reply([alls, {
-                type: "sticker",
-                packageId: "1",
-                stickerId: "10"
+                "type" : "sticker",
+                "packageId" : "1",
+                "stickerId": "10"
             }]).then(function (data) {
                 // success
                 console.log('success sent message' + data);

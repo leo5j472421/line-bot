@@ -3,13 +3,13 @@ FormData = require('form-data');
 fs = require('fs');
 rq = require( 'request' );
 
-
+channelAccessToken = 'fGY0tObXfJlN1e+7xyj4B7G1a0dgXNNxP62pFAOsz5KJtY4z98ZiyYU5V/L3AKLzNClxTBbdO6J1zciD0bZlhsqhFab1GqsKyrvw4RWfGRDLVBMYSPilZ86Q8PjjZ6nbsw/p9pOY73KZUt+YaSP1GwdB04t89/1O/w1cDnyilFU=';
 
 
 function createRichMenu() {
     let headers = {
         "Content-Type": 'application/json',
-        "Authorization": 'Bearer {fGY0tObXfJlN1e+7xyj4B7G1a0dgXNNxP62pFAOsz5KJtY4z98ZiyYU5V/L3AKLzNClxTBbdO6J1zciD0bZlhsqhFab1GqsKyrvw4RWfGRDLVBMYSPilZ86Q8PjjZ6nbsw/p9pOY73KZUt+YaSP1GwdB04t89/1O/w1cDnyilFU=}'
+        "Authorization": 'Bearer {'+channelAccessToken+'}'
     };
 
 
@@ -168,7 +168,7 @@ function uploadImage(){
 
 function getRichMenuList() {
     let headers = {
-        'Authorization': 'Bearer {fGY0tObXfJlN1e+7xyj4B7G1a0dgXNNxP62pFAOsz5KJtY4z98ZiyYU5V/L3AKLzNClxTBbdO6J1zciD0bZlhsqhFab1GqsKyrvw4RWfGRDLVBMYSPilZ86Q8PjjZ6nbsw/p9pOY73KZUt+YaSP1GwdB04t89/1O/w1cDnyilFU=}'
+        'Authorization': 'Bearer {'+channelAccessToken+'}'
     };
 
     let options = {
@@ -193,7 +193,7 @@ function deleteAllRichMenu(){
 
 function deleteRichMenu(id){
     let headers = {
-        'Authorization': 'Bearer {fGY0tObXfJlN1e+7xyj4B7G1a0dgXNNxP62pFAOsz5KJtY4z98ZiyYU5V/L3AKLzNClxTBbdO6J1zciD0bZlhsqhFab1GqsKyrvw4RWfGRDLVBMYSPilZ86Q8PjjZ6nbsw/p9pOY73KZUt+YaSP1GwdB04t89/1O/w1cDnyilFU=}'
+        'Authorization': 'Bearer {'+channelAccessToken+'}'
     };
 
     let options = {
@@ -212,7 +212,7 @@ function linkToUser(user,richmenu){
     return new Promise((resolve,reject)=>{
 
         let headers = {
-            'Authorization': 'Bearer {fGY0tObXfJlN1e+7xyj4B7G1a0dgXNNxP62pFAOsz5KJtY4z98ZiyYU5V/L3AKLzNClxTBbdO6J1zciD0bZlhsqhFab1GqsKyrvw4RWfGRDLVBMYSPilZ86Q8PjjZ6nbsw/p9pOY73KZUt+YaSP1GwdB04t89/1O/w1cDnyilFU=}',
+            'Authorization': 'Bearer {'+channelAccessToken+'}',
             'Content-Length': '0'
         };
 
@@ -233,4 +233,5 @@ function isEmptyObject(obj) {
     return !Object.keys(obj).length;
 }
 
-linkToUser('U3f3f4d6d4fcad592fb04bf79fd716640','richmenu-67131e25ce72af42abfe7553429d5ba7');
+
+getRichMenuList();
