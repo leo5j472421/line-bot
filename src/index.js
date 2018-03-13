@@ -107,18 +107,17 @@ function replyTick(event, currency) {
     });
 }
 
-/*
+
 bot.on('follow', (event => {
     let userid = event.source.userId;
     richMenu.getRichMenuList(menu => {
         let menuid = menu.richMenuId;
         richMenu.linkToUser(userid, menuid);
     }).then(() => {
-        console.log('link successful')
+        console.log('link successful');
         event.reply('肛溫訂閱')
     })
 }));
-*/
 
 
 bot.on('postback', (event) => {

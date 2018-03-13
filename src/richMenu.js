@@ -223,7 +223,7 @@ exports.linkToUser = function(user,richmenu){
         };
 
         rp(options).then(data=>{
-            if ( isEmptyObject(JSON.parse(data)) )
+            if ( exports.isEmptyObject(JSON.parse(data)) )
                 console.log( 'success link '+ richmenu + 'to user ' + user );
         })
     })
@@ -233,3 +233,27 @@ exports.isEmptyObject = function(obj) {
     return !Object.keys(obj).length;
 };
 
+
+unlinkUser = function (userId){
+    return new Promise((resolve,reject)=>{
+
+        let headers = {
+            'Authorization': 'Bearer {'+channelAccessToken+'}',
+            'Content-Length': '0'
+        };
+
+        let options = {
+            'url': 'https://api.line.me/v2/bot/user/'+userId+'/richmenu' ,
+            'method': 'DELETE',
+            'headers': headers
+        };
+
+        rp(options).then(data=>{
+            if ( exports.isEmptyObject(JSON.parse(data)) )
+                console.log(data);
+                console.log( 'success unlink rich menu to user ' + user );
+        })
+    })
+};
+
+//unlinkUser('U3f3f4d6d4fcad592fb04bf79fd716640');
