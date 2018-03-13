@@ -6,10 +6,6 @@ poloniex = require('./ExchangeApi/wsApi');
 jieba = require('./jieba-js/node.js/node');
 richMenu = require('./richMenu');
 
-richMenu.getRichMenuList().then(menu => {
-    console.log(menu.richMenuId)
-});
-
 
 bot = linebot({
     'channelId': '1566351681',
@@ -111,14 +107,19 @@ function replyTick(event, currency) {
     });
 }
 
-
+/*
 bot.on('follow', (event => {
     let userid = event.source.userId;
     richMenu.getRichMenuList(menu => {
         let menuid = menu.richMenuId;
-        richMenu.linkToUser(userid,menuid);
-    }).then(()=>console.log('link successful'))
+        richMenu.linkToUser(userid, menuid);
+    }).then(() => {
+        console.log('link successful')
+        event.reply('肛溫訂閱')
+    })
 }));
+*/
+
 
 bot.on('postback', (event) => {
     console.log('in postdata');
