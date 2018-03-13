@@ -254,11 +254,11 @@ unlinkUser = function (userId){
         rp(options).then(data=>{
             if ( exports.isEmptyObject(JSON.parse(data)) )
                 console.log(data);
-                console.log( 'success unlink rich menu to user ' + user );
+                console.log( 'success unlink rich menu to user ' + userId );
         })
     })
 };
 
 //unlinkUser('U3f3f4d6d4fcad592fb04bf79fd716640');
 
-exports.linkToUser('U3f3f4d6d4fcad592fb04bf79fd716640','richmenu-67131e25ce72af42abfe7553429d5ba7');
+//exports.linkToUser('U3f3f4d6d4fcad592fb04bf79fd716640','richmenu-67131e25ce72af42abfe7553429d5ba7');
