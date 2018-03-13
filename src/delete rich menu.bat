@@ -1,1 +1,0 @@
-curl -v -X DELETE https://api.line.me/v2/bot/richmenu/{richmenu-0734e613c325b40a459cc583d3ff6d5b}  -H "Authorization: Bearer {fGY0tObXfJlN1e+7xyj4B7G1a0dgXNNxP62pFAOsz5KJtY4z98ZiyYU5V/L3AKLzNClxTBbdO6J1zciD0bZlhsqhFab1GqsKyrvw4RWfGRDLVBMYSPilZ86Q8PjjZ6nbsw/p9pOY73KZUt+YaSP1GwdB04t89/1O/w1cDnyilFU=}"
