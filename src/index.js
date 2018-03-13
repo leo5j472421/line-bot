@@ -41,9 +41,10 @@ function start() {
     exchange.start();
 }
 
-function stringInArrary(arr,string){
+function stringInArrary(arr, string) {
     return arr.indexOf(string) === -1
 }
+
 start();
 allpair = ['BTC', 'ETH', 'LTC', 'XRP'];
 
@@ -140,8 +141,11 @@ bot.on('message', function (event) {
         } else {
             jieba(msg).then(result => {
                 console.log(result);
-                if ( stringInArrary(result,'出金') &&  stringInArrary(arr,'沒收到') && stringInArrary(arr,'完成') ) {
-                    let string = '區塊鏈需要時間處理交易Blah blah blah';
+                if (stringInArrary(result, '出金') && stringInArrary(arr, '沒收到') && stringInArrary(arr, '完成')) {
+                    let string = '區塊鏈需要時間處理交易，交易速度會依照您當初出金設定的手續費高低而定\n' +
+                        '如果希望能夠快速到帳，請設定較高的手續費\n' +
+                        '我們無法對已經在鏈上的交易作出任何干預(包括Unconfirmed Transactions)\n' +
+                        '※交易所的到帳資訊經常有誤，查看交易請以區塊鏈帳本為準';
 
                     event.reply([string, {
                         'type': 'template',
@@ -189,13 +193,39 @@ bot.on('message', function (event) {
 
                     })
 
-                } else if (result.indexOf('出金') !== -1 && result.indexOf('沒收到') !== -1) {
-                    let string = '申請後不會立即出金\n出金需要三個工作日的人工審核時間\n超過中午12點，視為隔日申請';
+                } else if (stringInArrary(result, '出金') && stringInArrary(result, '沒收到')) {
+                    let string = '請留意，申請後不會立即出金：\n' +
+                        '\n' +
+                        '出金需要三個工作日的人工審核時間\n' +
+                        '\n' +
+                        '超過中午12點，視為隔日申請\n' +
+                        '\n' +
+                        '例假日及國定假日不計入工作日\n' +
+                        '\n' +
+                        '例1: 小強在星期一早上10點申請出金，則出金日為星期三\n' +
+                        '\n' +
+                        '例2: 小明在星期五下午2點申請出金，則出金日為星期三\n' +
+                        '\n' +
+                        '例3: 小美在星期天凌晨3點申請出金，則出金日為星期三';
                     event.reply([string, sticker(1, 104)]).then(() => {
                         console.log('send success');
 
                     })
-                } else if (result.indexOf('查詢') !== -1 && (result.indexOf('交易') !== -1 || result.indexOf('帳本') !== -1)) {
+                } else if (stringInArrary(result, '帳號') && stringInArrary(result, '不存在')) {
+                    let string = '為避免您的帳號被他人盜用，輸入錯誤密碼時僅顯示不存在此帳號\n' +
+                        ' \n' +
+                        '若無法找回，可使用忘記密碼功能尋回';
+                    event.reply(string)
+                } else if (stringInArrary(result, '註冊信')) {
+                    let string = '建議使用Gmail註冊\n' +
+                        ' \n' +
+                        '避免使用Yahoo信箱、Hotmail\n\n' +
+                        '不然可能漏收註冊信';
+                    event.reply(string);
+                } else if (stringInArrary(result, '入金') && stringInArrary(result,'時間') ) {
+                    let string = '申請入金時間 \n 隨時(網站維修除外，事前將另行公告)';
+                    event.reply(string);
+                } else if (stringInArrary(result, '查詢') && (stringInArrary(result, '交易') || stringInArrary(result, '帳本'))) {
                     event.reply({
                         'type': "template",
                         'altText': "This is a buttons template",
@@ -204,7 +234,7 @@ bot.on('message', function (event) {
                             'thumbnailImageUrl': "https://cdn-images-1.medium.com/max/640/1*rv85RFa5z9_tMWo5QodVew.jpeg",
                             'imageAspectRatio': "rectangle",
                             'imageSize': "cover",
-                            'imageBackgroundColor': "#FFFFFF",
+                            'imageBackgroundColor': "#313335",
                             'title': "區塊鏈帳本",
                             'text': "選擇要查詢的幣種",
                             'defaultAction': {
@@ -228,7 +258,7 @@ bot.on('message', function (event) {
                     }).then(() => {
                         console.log('send success')
                     })
-                } else if (result.indexOf('知識') !== -1 && result.indexOf('問答') !== -1) {
+                } else if (stringInArrary(result, '知識') && stringInArrary(result, '問答')) {
                     event.reply({
                         'type': "template",
                         'altText': "This is a buttons template",
@@ -237,7 +267,7 @@ bot.on('message', function (event) {
                             'thumbnailImageUrl': "https://www.geotourismturkey.com/wp-content/uploads/2009/10/geo-tourism-frequently-asked-questions.jpg",
                             'imageAspectRatio': "rectangle",
                             'imageSize': "cover",
-                            'imageBackgroundColor': "#FFFFFF",
+                            'imageBackgroundColor': "#313335",
                             'title': "常見問題集",
                             'text': "關於出入金的常見問答集",
                             'defaultAction': {
@@ -261,13 +291,15 @@ bot.on('message', function (event) {
                     }).then(() => {
                         console.log('send success')
                     })
-                } else if (result.indexOf('兩步驗證') !== -1 && result.indexOf('兩步驟驗證') !== -1) {
+                } else if (stringInArrary(result, '兩步驗證') && stringInArrary(result, '兩步驟驗證')) {
                     let string = '我們強烈建議客戶啟用二階段驗證(Two-Factor Authentication，簡稱2FA)，它可以有效防止他人登入您的帳戶\n' +
                         ' \n' +
                         '同時，請備份您的二階段認證系統';
-                    event.reply([string,sticker(2,175)])
+                    event.reply([string, sticker(2, 175)])
                 } else {
-                    let string = '很抱歉系統無法辨識你的問題，請填寫表單回報你的問題';
+                    let string = '很抱歉系統無法辨識你的問題，建議請先利用知識庫尋找您的問題，';
+                    string += '通常80%以上的問題都可以在知識庫得到解答，';
+                    string += '如我在知識庫找不到您的問題在請麻煩填寫表單回報你的問題';
                     event.reply([string, {
                         'type': "template",
                         'altText': "This is a buttons template",
@@ -276,13 +308,13 @@ bot.on('message', function (event) {
                             'thumbnailImageUrl': "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4FpwMxT88YnZg7C2a279SXJSTi86JYNkM13AL7b7ChjQqd8rt",
                             'imageAspectRatio': "rectangle",
                             'imageSize': "cover",
-                            'imageBackgroundColor': "#FFFFFF",
+                            'imageBackgroundColor': "#313335",
                             'title': "回報問題",
                             'text': "請聯絡表單通知客服人員",
                             'defaultAction': {
                                 'type': "uri",
-                                'label': "入金常見問題",
-                                'uri': "https://blocksfuturehelp.zendesk.com/hc/zh-tw/categories/115000501514-%E5%85%A5%E9%87%91"
+                                'label': "常見問題集",
+                                'uri': "https://blocksfuturehelp.zendesk.com/hc/zh-tw"
                             },
                             'actions': [
                                 {
