@@ -42,7 +42,7 @@ function start() {
 }
 
 function stringInArrary(arr, string) {
-    return arr.indexOf(string) === -1
+    return !arr.indexOf(string) === -1
 }
 
 start();
@@ -222,7 +222,7 @@ bot.on('message', function (event) {
                         '避免使用Yahoo信箱、Hotmail\n\n' +
                         '不然可能漏收註冊信';
                     event.reply(string);
-                } else if (stringInArrary(result, '入金') && stringInArrary(result,'時間') ) {
+                } else if (stringInArrary(result, '入金') && stringInArrary(result, '時間')) {
                     let string = '申請入金時間 \n 隨時(網站維修除外，事前將另行公告)';
                     event.reply(string);
                 } else if (stringInArrary(result, '查詢') && (stringInArrary(result, '交易') || stringInArrary(result, '帳本'))) {
