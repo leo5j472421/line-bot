@@ -264,7 +264,7 @@ bot.on('message', function (event) {
                         console.log('send success')
                     })
                 }
-                else if (stringInArrary(result, '知識') && stringInArrary(result, '問答')) {
+                else if (stringInArrary(result, '知識') || stringInArrary(result, '問答')) {
                     event.reply({
                         'type': "template",
                         'altText': "This is a buttons template",
@@ -298,7 +298,43 @@ bot.on('message', function (event) {
                         console.log('send success')
                     })
                 }
-                else if (stringInArrary(result, '兩步驗證') && stringInArrary(result, '兩步驟驗證')) {
+                else if ((stringInArrary(result, '兩步驗證') || stringInArrary(result, '兩步驟驗證')) && stringInArrary(result, '遺失')) {
+                    let string = '一旦遺失，請填寫回報單處理，為了您的帳戶安全，我們不接受以回報單以外任何形式申請\n' +
+                        ' \n' +
+                        '找回二階段認證需時較長，工程團隊會主動與您聯繫' ;
+
+                    event.reply([string,{
+                        'type': "template",
+                        'altText': "This is a buttons template",
+                        'template': {
+                            'type': "buttons",
+                            'thumbnailImageUrl': "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4FpwMxT88YnZg7C2a279SXJSTi86JYNkM13AL7b7ChjQqd8rt",
+                            'imageAspectRatio': "rectangle",
+                            'imageSize': "cover",
+                            'imageBackgroundColor': "#313335",
+                            'title': "回報問題",
+                            'text': "請聯絡表單通知客服人員",
+                            'defaultAction': {
+                                'type': "uri",
+                                'label': "填寫回報單",
+                                'uri': "https://blocksfuturehelp.zendesk.com/hc/zh-tw/requests/new"
+                            },
+                            'actions': [
+                                {
+                                    'type': "uri",
+                                    'label': "常見問題集",
+                                    'uri': "https://blocksfuturehelp.zendesk.com/hc/zh-tw"
+                                },
+                                {
+                                    'type': "uri",
+                                    'label': "填寫回報單",
+                                    'uri': "https://blocksfuturehelp.zendesk.com/hc/zh-tw/requests/new"
+                                }
+                            ]
+                        }
+                    },sticker(2, 175)])
+                }
+                else if (stringInArrary(result, '兩步驗證') || stringInArrary(result, '兩步驟驗證')) {
                     let string = '我們強烈建議客戶啟用二階段驗證(Two-Factor Authentication，簡稱2FA)，它可以有效防止他人登入您的帳戶\n' +
                         ' \n' +
                         '同時，請備份您的二階段認證系統';
@@ -307,7 +343,7 @@ bot.on('message', function (event) {
                 else {
                     let string = '很抱歉系統無法辨識你的問題，建議請先利用知識庫尋找您的問題，';
                     string += '通常80%以上的問題都可以在知識庫得到解答，';
-                    string += '如我在知識庫找不到您的問題在請麻煩填寫表單回報你的問題';
+                    string += '如我在知識庫找不到您的問題，再請麻煩填寫表單回報你的問題';
                     event.reply([string, {
                         'type': "template",
                         'altText': "This is a buttons template",
@@ -321,8 +357,8 @@ bot.on('message', function (event) {
                             'text': "請聯絡表單通知客服人員",
                             'defaultAction': {
                                 'type': "uri",
-                                'label': "常見問題集",
-                                'uri': "https://blocksfuturehelp.zendesk.com/hc/zh-tw"
+                                'label': "填寫回報單",
+                                'uri': "https://blocksfuturehelp.zendesk.com/hc/zh-tw/requests/new"
                             },
                             'actions': [
                                 {
@@ -352,6 +388,7 @@ const linebotParser = bot.parser();
 app.post('/', linebotParser);
 
 //因為 express 預設走 port 3000，而 heroku 上預設卻不是，要透過下列程式轉換
+
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
