@@ -26,8 +26,8 @@ function pad(num, padding) {
 
 function timestampToDate(timestamp) {
     let rDate = new Date(parseInt(timestamp));
-    let date = rDate.getFullYear() + "-" + pad(rDate.getMonth() + 1, 2) + "-" + pad(rDate.getDate(), 2);
-    let time = pad(rDate.getHours(), 2) + ":" + pad(rDate.getMinutes(), 2) + ":" + pad(rDate.getSeconds(), 2);
+    let date = rDate.getUTCFullYear() + "-" + pad(rDate.getUTCMonth() + 1, 2) + "-" + pad(rDate.getUTCDate(), 2);
+    let time = pad(rDate.getUTCHours(), 2) + ":" + pad(rDate.getMinutes(), 2) + ":" + pad(rDate.getSeconds(), 2);
     return [date, time];
 
 }
@@ -48,7 +48,6 @@ client.query('INSERT INTO public.chatlog(\n' +
     client.end();
 });
 */
-
 
 
 bot = linebot({
@@ -73,17 +72,62 @@ all = {
     }
 };
 
-function chatlog(event){
+function chatlog(event) {
     client.connect();
-    let datetime = timestampToDate(Date.now());
+    let datetime = timestampToDate(event.timestamp);
     let type = event.type;
-    let sent = true;
     let userId = event.source.userId;
-    bot.getUserProfile(userId).then( profile => {
-        console.log('yes id here');
+    let message;
+    switch (type) {
+        case 'message':
+            switch
+                (event.message.type) {
+                case
+                'message'
+                :
+                    message = event.message.text;
+                    break;
+                case
+                'image'
+                :
+                    message = event.message.id;
+                    break;
+                case
+                'video'
+                :
+                    message = event.message.id;
+                    break;
+                case
+                'audio'
+                :
+                    message = event.message.id;
+                    break;
+                case
+                'file'
+                :
+                    message = event.message.fileName;
+                    break;
+                case
+                'location'
+                :
+                    message = event.message.latitude.toString() + ',' + event.message.longitude.toString();
+                    break;
+                case
+                'sticker'
+                :
+                    message = event.message.packageId.toString() + ',' + event.message.stickerId.toString();
+            }
+            break;
+        case 'postback':
+            message = event.postback.date;
+            break;
+        default:
+            message = type;
+    }
+    bot.getUserProfile(userId).then(profile => {
         let sqlquery = 'INSERT INTO public.chatlog(\n' +
-            '\tdate, message, sent, "time", type, "userId", "userName")\n' +
-            '\tVALUES (\'' + datetime[0] + '\', \''+event.message.text +'\', True, \'' + datetime[1] + '\', \''+type+'\', \''+userId+'\', \''+profile.displayName+'\');';
+            '\tdate, message, "time", type, "userId", "userName")\n' +
+            '\tVALUES (\'' + datetime[0] + '\', \'' + message + '\', \'' + datetime[1] + '\', \'' + type + '\', \'' + userId + '\', \'' + profile.displayName + '\');';
         console.log(sqlquery);
         client.query(sqlquery, (err, res) => {
             if (err)
@@ -175,6 +219,7 @@ function replyTick(event, currency) {
 
 bot.on('follow', (event => {
     let userid = event.source.userId;
+    chatlog(event);
     richMenu.getRichMenuList().then((menu) => {
         let menuid = menu.richMenuId;
         richMenu.linkToUser(userid, menuid).then(() => {
@@ -187,6 +232,7 @@ bot.on('follow', (event => {
 
 bot.on('postback', (event) => {
     console.log('in postdata');
+    chatlog(event);
     try {
         data = JSON.parse(event.postback.data);
     } catch (e) {
