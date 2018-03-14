@@ -74,6 +74,7 @@ all = {
 };
 
 function chatlog(event){
+    client.connect();
     let datetime = timestampToDate(Date.now());
     let type = event.type;
     let sent = true;
