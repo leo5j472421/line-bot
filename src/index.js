@@ -13,6 +13,11 @@ const client = new Client({
     ssl: true,
 });
 
+console.log(process.env.DATABASE_URL);
+console.log('INSERT INTO public.chatlog(\n' +
+'\tdate, message, sent, "time", type, "userId", "userName")\n' +
+'\tVALUES (' + datetime[0] + ', test, True, ' + datetime[1] + ', message, 12345, 爽拉);');
+
 function pad(num, padding) {
     if (typeof num !== "string")
         num = num.toString();
