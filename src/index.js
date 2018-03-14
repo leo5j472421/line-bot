@@ -13,11 +13,6 @@ const client = new Client({
     ssl: true,
 });
 
-console.log(process.env.DATABASE_URL);
-console.log('INSERT INTO public.chatlog(\n' +
-'\tdate, message, sent, "time", type, "userId", "userName")\n' +
-'\tVALUES (' + datetime[0] + ', test, True, ' + datetime[1] + ', message, 12345, 爽拉);');
-
 function pad(num, padding) {
     if (typeof num !== "string")
         num = num.toString();
@@ -37,13 +32,13 @@ function timestampToDate(timestamp) {
 
 }
 
-datetime = timestampToDate(Date.now());
 
+/*
 client.connect();
 
 client.query('INSERT INTO public.chatlog(\n' +
     '\tdate, message, sent, "time", type, "userId", "userName")\n' +
-    '\tVALUES (' + datetime[0] + ', test, True, ' + datetime[1] + ', message, 12345, 爽拉);', (err, res) => {
+    '\tVALUES (\'' + datetime[0] + '\', \'test\', True, \'' + datetime[1] + '\', \'message\', \'12345\', \'爽拉\');', (err, res) => {
     if (err)
         console.log(err);
     else
@@ -52,6 +47,8 @@ client.query('INSERT INTO public.chatlog(\n' +
         }
     client.end();
 });
+*/
+
 
 
 bot = linebot({
@@ -75,6 +72,15 @@ all = {
         "columns": []
     }
 };
+
+function chatlog(event){
+    let datetime = timestampToDate(Date.now());
+    let type = event.type;
+    let sent = true;
+    let userId = event.source.userId;
+    let userName = bot.getUserProfile(userId);
+    console.log(userName)
+}
 
 function sticker(pkg, id) {
     return {
@@ -181,6 +187,7 @@ bot.on('postback', (event) => {
 
 bot.on('message', function (event) {
     console.log('user ID: ' + event.source.userId);
+    chatlog(event);
     if (event.message.type = 'text') {
         let msg = event.message.text;
         let msgs = msg.match(/\S+/g);
