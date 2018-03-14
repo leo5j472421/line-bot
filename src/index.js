@@ -132,8 +132,7 @@ function chatlog(event) {
             '\tdate, message, "time", type, "userId", "userName")\n' +
             '\tVALUES (\'' + datetime[0] + '\', \'' + message + '\', \'' + datetime[1] + '\', \'' + type + '\', \'' + userId + '\', \'' + profile.displayName + '\');';
         console.log(sqlquery);
-        client.query(sqlquery, (err, res,done) => {
-            done();
+        client.query(sqlquery, (err, res) => {
             if (err)
                 console.log(err);
             else
