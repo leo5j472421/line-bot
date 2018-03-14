@@ -79,9 +79,12 @@ function chatlog(event){
     let sent = true;
     let userId = event.source.userId;
     bot.getUserProfile(userId).then( userName => {
-        client.query('INSERT INTO public.chatlog(\n' +
+        console.log('yes id here');
+        let sqlquery = 'INSERT INTO public.chatlog(\n' +
             '\tdate, message, sent, "time", type, "userId", "userName")\n' +
-            '\tVALUES (\'' + datetime[0] + '\', \''+event.message.text +'\', True, \'' + datetime[1] + '\', \''+type+'\', \''+userId+'\', \''+userName+'\');', (err, res) => {
+            '\tVALUES (\'' + datetime[0] + '\', \''+event.message.text +'\', True, \'' + datetime[1] + '\', \''+type+'\', \''+userId+'\', \''+userName+'\');';
+        console.log(sqlquery);
+        client.query(sqlquert, (err, res) => {
             if (err)
                 console.log(err);
             else
