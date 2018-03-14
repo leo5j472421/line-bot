@@ -13,6 +13,8 @@ const client = new Client({
     ssl: true,
 });
 
+client.connect();
+
 function pad(num, padding) {
     if (typeof num !== "string")
         num = num.toString();
@@ -73,7 +75,6 @@ all = {
 };
 
 function chatlog(event) {
-    client.connect();
     let datetime = timestampToDate(event.timestamp);
     let type = event.type;
     let userId = event.source.userId;
@@ -83,7 +84,7 @@ function chatlog(event) {
             switch
                 (event.message.type) {
                 case
-                'message'
+                'text'
                 :
                     message = event.message.text;
                     break;
@@ -131,12 +132,12 @@ function chatlog(event) {
             '\tdate, message, "time", type, "userId", "userName")\n' +
             '\tVALUES (\'' + datetime[0] + '\', \'' + message + '\', \'' + datetime[1] + '\', \'' + type + '\', \'' + userId + '\', \'' + profile.displayName + '\');';
         console.log(sqlquery);
-        client.query(sqlquery, (err, res) => {
+        client.query(sqlquery, (err, res,done) => {
+            done();
             if (err)
                 console.log(err);
             else
                 console.log(res);
-            client.end();
         });
     });
 }
