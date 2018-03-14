@@ -81,8 +81,7 @@ function chatlog(event) {
     let message;
     if (type === 'message')
         type = event.message.type;
-    switch
-        (event.message.type) {
+    switch (type) {
         case 'text':
             message = event.message.text;
             break;
@@ -106,7 +105,6 @@ function chatlog(event) {
             break;
         case 'postback':
             message = event.postback.data;
-            console.log(event.postback.data);
             break;
         default:
             message = type;
