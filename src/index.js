@@ -6,14 +6,14 @@ poloniex = require('./ExchangeApi/wsApi');
 jieba = require('./jieba-js/node.js/node');
 richMenu = require('./richMenu');
 
-const { Client } = require('pg');
+const {Client} = require('pg');
 
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
 });
 
-function pad(num,padding){
+function pad(num, padding) {
     if (typeof num !== "string")
         num = num.toString();
 
@@ -24,11 +24,11 @@ function pad(num,padding){
 }
 
 
-function timestampToDate(timestamp){
+function timestampToDate(timestamp) {
     let rDate = new Date(parseInt(timestamp));
-    let date = rDate.getFullYear() + "-" + pad(rDate.getMonth() + 1,2) + "-" + pad(rDate.getDate(),2);
-    let time = pad(rDate.getHours(),2) + ":" + pad(rDate.getMinutes(),2) + ":" + pad(rDate.getSeconds(),2);
-        return [date,time];
+    let date = rDate.getFullYear() + "-" + pad(rDate.getMonth() + 1, 2) + "-" + pad(rDate.getDate(), 2);
+    let time = pad(rDate.getHours(), 2) + ":" + pad(rDate.getMinutes(), 2) + ":" + pad(rDate.getSeconds(), 2);
+    return [date, time];
 
 }
 
@@ -38,11 +38,13 @@ client.connect();
 
 client.query('INSERT INTO public.chatlog(\n' +
     '\tdate, message, sent, "time", type, "userId", "userName")\n' +
-    '\tVALUES ('+datetime[0]+', test, True, '+datetime[1]+', message, 12345, 爽拉);', (err, res) => {
-    if (err) throw err;
-    for (let row of res.rows) {
-        console.log(JSON.stringify(row));
-    }
+    '\tVALUES (' + datetime[0] + ', test, True, ' + datetime[1] + ', message, 12345, 爽拉);', (err, res) => {
+    if (err)
+        console.log(err);
+    else
+        for (let row of res.rows) {
+            console.log(JSON.stringify(row));
+        }
     client.end();
 });
 
@@ -150,7 +152,7 @@ function replyTick(event, currency) {
 bot.on('follow', (event => {
     let userid = event.source.userId;
     richMenu.getRichMenuList().then((menu) => {
-        let menuid = menu.richMenuId ;
+        let menuid = menu.richMenuId;
         richMenu.linkToUser(userid, menuid).then(() => {
             console.log('link successful');
             event.reply('肛溫訂閱')
