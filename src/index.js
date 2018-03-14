@@ -124,6 +124,8 @@ function chatlog(event) {
         default:
             message = type;
     }
+
+    console.log(message);
     bot.getUserProfile(userId).then(profile => {
         let sqlquery = 'INSERT INTO public.chatlog(\n' +
             '\tdate, message, "time", type, "userId", "userName")\n' +
@@ -247,7 +249,7 @@ bot.on('postback', (event) => {
 bot.on('message', function (event) {
     console.log('user ID: ' + event.source.userId);
     chatlog(event);
-    if (event.message.type = 'text') {
+    if (event.message.type === 'text') {
         let msg = event.message.text;
         let msgs = msg.match(/\S+/g);
         console.log(msgs);
