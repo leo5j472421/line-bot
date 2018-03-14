@@ -79,48 +79,33 @@ function chatlog(event) {
     let type = event.type;
     let userId = event.source.userId;
     let message;
-    switch (type) {
-        case 'message':
-            switch
-                (event.message.type) {
-                case
-                'text'
-                :
-                    message = event.message.text;
-                    break;
-                case
-                'image'
-                :
-                    message = event.message.id;
-                    break;
-                case
-                'video'
-                :
-                    message = event.message.id;
-                    break;
-                case
-                'audio'
-                :
-                    message = event.message.id;
-                    break;
-                case
-                'file'
-                :
-                    message = event.message.fileName;
-                    break;
-                case
-                'location'
-                :
-                    message = event.message.latitude.toString() + ',' + event.message.longitude.toString();
-                    break;
-                case
-                'sticker'
-                :
-                    message = event.message.packageId.toString() + ',' + event.message.stickerId.toString();
-            }
+    if (type === 'message')
+        type = event.message.type;
+    switch
+        (event.message.type) {
+        case 'text':
+            message = event.message.text;
+            break;
+        case 'image':
+            message = event.message.id;
+            break;
+        case 'video':
+            message = event.message.id;
+            break;
+        case 'audio':
+            message = event.message.id;
+            break;
+        case 'file':
+            message = event.message.fileName;
+            break;
+        case 'location':
+            message = event.message.latitude.toString() + ',' + event.message.longitude.toString();
+            break;
+        case 'sticker':
+            message = event.message.packageId.toString() + ',' + event.message.stickerId.toString();
             break;
         case 'postback':
-            message = event.postback.date;
+            message = event.postback.data;
             break;
         default:
             message = type;
