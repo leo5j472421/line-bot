@@ -176,16 +176,17 @@ exports.getRichMenuList = function () {
         'headers' : headers
     };
     return rp(options).then(body => {
-        let data = JSON.parse(body).richmenus[0] ;
+        let data = JSON.parse(body).richmenus ;
         //console.log(data);
         return data;
     });
 };
 
 exports.deleteAllRichMenu =  function (){
-    return getRichMenuList().then( data => {
+    return exports.getRichMenuList().then( data => {
+        console.log(data);
         for ( let index in data ){
-            deleteRichMenu(data[index].richMenuId);
+            exports.deleteRichMenu(data[index].richMenuId);
         }
 
     } );
@@ -203,7 +204,7 @@ exports.deleteRichMenu = function (id){
     };
 
     rp(options).then(body => {
-        if ( isEmptyObject(JSON.parse(body)) )
+        if ( exports.isEmptyObject(JSON.parse(body)) )
           console.log('Success delete rich menu : '+ id);
     });
 };
@@ -261,4 +262,6 @@ unlinkUser = function (userId){
 
 //unlinkUser('U3f3f4d6d4fcad592fb04bf79fd716640');
 
-//exports.linkToUser('U3f3f4d6d4fcad592fb04bf79fd716640','richmenu-67131e25ce72af42abfe7553429d5ba7');
+//exports.linkToUser('U3f3f4d6d4fcad592fb04bf79fd716640','richmenu-67131e25ce72af42abfe7553429d5b
+
+exports.createRichMenu();

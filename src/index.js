@@ -35,22 +35,6 @@ function timestampToDate(timestamp) {
 }
 
 
-/*
-client.connect();
-
-client.query('INSERT INTO public.chatlog(\n' +
-    '\tdate, message, sent, "time", type, "userId", "userName")\n' +
-    '\tVALUES (\'' + datetime[0] + '\', \'test\', True, \'' + datetime[1] + '\', \'message\', \'12345\', \'爽拉\');', (err, res) => {
-    if (err)
-        console.log(err);
-    else
-        for (let row of res.rows) {
-            console.log(JSON.stringify(row));
-        }
-    client.end();
-});
-*/
-
 
 bot = linebot({
     'channelId': '1566351681',
@@ -206,14 +190,16 @@ function replyTick(event, currency) {
 bot.on('follow', (event => {
     let userid = event.source.userId;
     chatlog(event);
-    richMenu.getRichMenuList().then((menu) => {
-        let menuid = menu.richMenuId;
+    richMenu.getRichMenuList().then((menus) => {
+        let menuid = menus[0].richMenuId;
         richMenu.linkToUser(userid, menuid).then(() => {
             console.log('link successful');
             event.reply('肛溫訂閱')
         });
     })
 }));
+
+bot.on('unfollow', (event => chatlog(event)));
 
 
 bot.on('postback', (event) => {
@@ -235,7 +221,7 @@ bot.on('message', function (event) {
     chatlog(event);
     if (event.message.type === 'text') {
         let msg = event.message.text;
-        let msgs = msg.match(/\S+/g);
+        let msgs = msg.match(/\S+/g);  // 依照空格切token
         console.log(msgs);
         let action = msgs[0];
         if (action === 'restart')
