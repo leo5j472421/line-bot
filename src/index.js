@@ -6,6 +6,46 @@ poloniex = require('./ExchangeApi/wsApi');
 jieba = require('./jieba-js/node.js/node');
 richMenu = require('./richMenu');
 
+const { Client } = require('pg');
+
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+});
+
+function pad(num,padding){
+    if (typeof num !== "string")
+        num = num.toString();
+
+    while (num.length < padding)
+        num = "0" + num;
+
+    return num;
+}
+
+
+function timestampToDate(timestamp){
+    let rDate = new Date(parseInt(timestamp));
+    let date = rDate.getFullYear() + "-" + pad(rDate.getMonth() + 1,2) + "-" + pad(rDate.getDate(),2);
+    let time = pad(rDate.getHours(),2) + ":" + pad(rDate.getMinutes(),2) + ":" + pad(rDate.getSeconds(),2);
+        return [date,time];
+
+}
+
+datetime = timestampToDate(Date.now());
+
+client.connect();
+
+client.query('INSERT INTO public.chatlog(\n' +
+    '\tdate, message, sent, "time", type, "userId", "userName")\n' +
+    '\tVALUES ('+datetime[0]+', test, True, '+datetime[1]+', message, 12345, 爽拉);', (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+        console.log(JSON.stringify(row));
+    }
+    client.end();
+});
+
 
 bot = linebot({
     'channelId': '1566351681',
