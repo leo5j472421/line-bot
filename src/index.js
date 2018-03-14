@@ -88,9 +88,7 @@ function chatlog(event){
             if (err)
                 console.log(err);
             else
-                for (let row of res.rows) {
-                    console.log(JSON.stringify(row));
-                }
+                console.log(res);
             client.end();
         });
     });
