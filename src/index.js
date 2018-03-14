@@ -78,8 +78,19 @@ function chatlog(event){
     let type = event.type;
     let sent = true;
     let userId = event.source.userId;
-    let userName = bot.getUserProfile(userId);
-    console.log(userName)
+    bot.getUserProfile(userId).then( userName => {
+        client.query('INSERT INTO public.chatlog(\n' +
+            '\tdate, message, sent, "time", type, "userId", "userName")\n' +
+            '\tVALUES (\'' + datetime[0] + '\', \''+event.message.text +'\', True, \'' + datetime[1] + '\', \''+type+'\', \''+userId+'\', \''+userName+'\');', (err, res) => {
+            if (err)
+                console.log(err);
+            else
+                for (let row of res.rows) {
+                    console.log(JSON.stringify(row));
+                }
+            client.end();
+        });
+    });
 }
 
 function sticker(pkg, id) {
