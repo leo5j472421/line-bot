@@ -106,6 +106,7 @@ function chatlog(event) {
             break;
         case 'postback':
             message = event.postback.data;
+            console.log(event.postback.data);
             break;
         default:
             message = type;
