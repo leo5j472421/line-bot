@@ -94,7 +94,6 @@ function chatlog(event) {
             message = type;
     }
 
-    console.log(message);
     bot.getUserProfile(userId).then(profile => {
         let sqlquery = 'INSERT INTO public.chatlog(\n' +
             '\tdate, message, "time", type, "userId", "userName")\n' +
@@ -156,7 +155,6 @@ function alltick() {
 function replyAll(event) {
     return new Promise((resolve, reject) => {
         alltick().then(alls => {
-            console.log(alls.template.columns[0]);
             event.reply([alls, sticker(1, 10)]).then(function (data) {
                 // success
                 console.log('success sent message' + data);
@@ -177,7 +175,6 @@ function replyTick(event, currency) {
         string += '\n過去24H最高價 : ' + ticker.high.toFixed(3);
         string += '\n過去24H最低價 : ' + ticker.low.toFixed(3);
         string += '\n漲幅 : ' + ticker.change.toFixed(3) + '%';
-        console.log(string);
         event.reply(string).then(function (data) {
             // success
             console.log('success sent message' + data);
@@ -203,7 +200,6 @@ bot.on('unfollow', (event => chatlog(event)));
 
 
 bot.on('postback', (event) => {
-    console.log('in postdata');
     chatlog(event);
     try {
         data = JSON.parse(event.postback.data);

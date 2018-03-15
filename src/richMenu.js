@@ -264,4 +264,4 @@ unlinkUser = function (userId){
 
 //exports.linkToUser('U3f3f4d6d4fcad592fb04bf79fd716640','richmenu-67131e25ce72af42abfe7553429d5b
 
-exports.createRichMenu();
+//exports.createRichMenu();
