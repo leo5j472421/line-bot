@@ -45,3 +45,4 @@ if (typeof(define) === "function") {
 else {
     module.exports = _custom_dict;
 }
+

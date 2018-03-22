@@ -11,6 +11,7 @@
   "dependencies": {
     "express": "^4.16.2",
     "form-data": "^2.3.2",
+    "line-richmenus-manager": "^0.1.1",
     "linebot": "^1.4.1",
     "mysql": "^2.15.0",
     "node-gyp": "^3.6.2",
